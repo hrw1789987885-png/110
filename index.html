@@ -1,0 +1,1931 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>警民通市民报警小程序</title>
+  <style>
+    :root {
+      --page: #e9eeed;
+      --screen: #f7f9f8;
+      --panel: #fbfcfb;
+      --panel-2: #f0f5f4;
+      --rail: #173a45;
+      --rail-2: #21546a;
+      --border: rgba(16, 38, 38, .08);
+      --border-strong: rgba(16, 38, 38, .14);
+      --ink-1: #102426;
+      --ink-2: #344c50;
+      --ink-3: #687c80;
+      --accent: #176c6b;
+      --accent-2: #c4633f;
+      --accent-soft: rgba(23, 108, 107, .1);
+      --alarm: #c8322a;
+      --alarm-soft: rgba(200, 50, 42, .1);
+      --warn: #b77a16;
+      --on-accent: #f8fbfa;
+      --shadow: 0 1px 3px rgba(19, 61, 74, .05);
+      --shadow-lg: 0 34px 80px -48px rgba(19, 61, 74, .38);
+      --r-lg: 28px;
+      --r: 18px;
+      --r-sm: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100svh;
+      color: var(--ink-1);
+      background:
+        radial-gradient(460px 260px at 50% -70px, rgba(23, 108, 107, .18), transparent 68%),
+        linear-gradient(180deg, var(--page), #dce8e7);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      font-size: 14px;
+      letter-spacing: 0;
+      display: grid;
+      place-items: start center;
+      padding: 18px 10px 24px;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid rgba(23, 108, 107, .24);
+      outline-offset: 3px;
+    }
+
+    .phone {
+      width: min(100%, 430px);
+      min-height: calc(100svh - 42px);
+      overflow: hidden;
+      border-radius: var(--r-lg);
+      background: var(--screen);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(16, 38, 38, .1);
+      position: relative;
+    }
+
+    .status-bar {
+      height: 26px;
+      background: var(--rail);
+    }
+
+    .hero {
+      min-height: 220px;
+      color: var(--on-accent);
+      padding: 12px 16px 18px;
+      background:
+        linear-gradient(180deg, rgba(12, 45, 58, .28), rgba(12, 45, 58, .76)),
+        url("assets/title-bg.png") center 44% / cover no-repeat;
+      position: relative;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(9, 36, 45, .78), rgba(9, 36, 45, .28) 58%, rgba(9, 36, 45, .5)),
+        radial-gradient(180px 110px at 72% 18%, rgba(248, 251, 250, .16), transparent 72%);
+      pointer-events: none;
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar,
+    .mini-app-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .mini-app-bar {
+      height: 34px;
+      margin-bottom: 14px;
+    }
+
+    .wx-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      height: 30px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(248, 251, 250, .16);
+      border: 1px solid rgba(248, 251, 250, .14);
+      color: rgba(248, 251, 250, .92);
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .profile-link {
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      color: var(--on-accent);
+      background: rgba(248, 251, 250, .14);
+      border: 1px solid rgba(248, 251, 250, .18);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .switch-button {
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      border-radius: 50%;
+      color: var(--on-accent);
+      background: rgba(248, 251, 250, .14);
+      border: 1px solid rgba(248, 251, 250, .18);
+      display: grid;
+      place-items: center;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .brand h1 {
+      margin: 0 0 10px;
+      font-size: 38px;
+      line-height: .95;
+      letter-spacing: 0;
+      font-weight: 900;
+    }
+
+    .brand p {
+      margin: 0;
+      color: rgba(248, 251, 250, .88);
+      font-weight: 700;
+      font-size: 17px;
+    }
+
+    .reward {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 36px;
+      padding: 0 12px;
+      border-radius: 999px;
+      color: var(--rail);
+      background: #f9d66a;
+      box-shadow: 0 10px 26px rgba(81, 56, 4, .16);
+      font-weight: 800;
+    }
+
+    .city-mark {
+      position: absolute;
+      right: 14px;
+      bottom: 18px;
+      display: grid;
+      place-items: center;
+      width: 104px;
+      height: 90px;
+      color: rgba(248, 251, 250, .42);
+    }
+
+    .city-mark svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    main {
+      padding: 0 16px 92px;
+      margin-top: -12px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .location {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 38px;
+      padding: 8px 12px;
+      border-radius: 16px;
+      background: #fff3c8;
+      color: #5d4010;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(183, 122, 22, .16);
+    }
+
+    .location strong {
+      color: #3d2a09;
+    }
+
+    .close-location {
+      margin-left: auto;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(93, 64, 16, .08);
+      color: #5d4010;
+      font-size: 18px;
+    }
+
+    .alarm-card {
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: 20px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .alarm-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .alarm-action {
+      min-height: 70px;
+      border-radius: 16px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+      border: 1px solid transparent;
+    }
+
+    .alarm-action strong {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .alarm-action span {
+      display: block;
+      color: var(--ink-3);
+      font-size: 12px;
+    }
+
+    .alarm-action.hot {
+      background: linear-gradient(180deg, #fff2f1, #fde4e1);
+      border-color: rgba(200, 50, 42, .18);
+      color: var(--alarm);
+    }
+
+    .alarm-action.online {
+      background: linear-gradient(180deg, #ecf6f5, #e2f0ef);
+      border-color: rgba(23, 108, 107, .16);
+      color: var(--accent);
+    }
+
+    .icon-chip {
+      flex: 0 0 auto;
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      background: rgba(248, 251, 250, .76);
+      box-shadow: inset 0 0 0 1px rgba(16, 38, 38, .06);
+    }
+
+    section {
+      margin-top: 14px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 2px 8px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .section-head span {
+      color: var(--ink-3);
+      font-size: 12px;
+    }
+
+    .station-card,
+    .ai-card,
+    .services,
+    .footer-help {
+      border-radius: 20px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .station-card {
+      padding: 14px;
+    }
+
+    .station-main {
+      display: grid;
+      grid-template-columns: 1fr 72px;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .station-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+      color: var(--ink-2);
+    }
+
+    .station-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .officer {
+      display: grid;
+      justify-items: center;
+      gap: 7px;
+    }
+
+    .avatar {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 30%, #f7c8a4 0 18px, transparent 19px),
+        radial-gradient(circle at 50% 86%, #1c4b5d 0 31px, transparent 32px),
+        #dbe9eb;
+      border: 3px solid #edf5f4;
+      box-shadow: 0 8px 18px rgba(19, 61, 74, .12);
+      position: relative;
+    }
+
+    .avatar::before,
+    .avatar::after {
+      content: "";
+      position: absolute;
+      top: 28px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #21333a;
+    }
+
+    .avatar::before {
+      left: 25px;
+    }
+
+    .avatar::after {
+      right: 25px;
+    }
+
+    .officer strong {
+      font-size: 15px;
+    }
+
+    .station-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .soft-button {
+      min-height: 48px;
+      border-radius: 14px;
+      background: var(--panel-2);
+      color: var(--accent);
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+    }
+
+    .ai-card {
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 1fr 64px;
+      gap: 12px;
+      align-items: center;
+      background:
+        radial-gradient(100px 80px at 88% 18%, rgba(23, 108, 107, .14), transparent 70%),
+        var(--panel);
+    }
+
+    .ai-card h2 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .ai-card p {
+      margin: 0;
+      color: var(--ink-3);
+      line-height: 1.55;
+      font-size: 13px;
+    }
+
+    .ask-link {
+      margin-top: 10px;
+      min-height: 38px;
+      padding: 0 13px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: var(--on-accent);
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .bot {
+      width: 64px;
+      height: 64px;
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 50% 18%, rgba(248, 251, 250, .36), transparent 24%),
+        linear-gradient(150deg, var(--accent), #54b7b0);
+      color: var(--on-accent);
+      box-shadow: 0 12px 30px rgba(23, 108, 107, .24);
+    }
+
+    .bot svg {
+      width: 50px;
+      height: 50px;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--border);
+    }
+
+    .service {
+      min-height: 86px;
+      background: var(--panel);
+      color: var(--ink-2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 6px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .service svg {
+      color: var(--accent);
+    }
+
+    .service.is-reserved svg {
+      color: var(--accent-2);
+    }
+
+    .footer-help {
+      padding: 14px;
+      color: var(--ink-2);
+      display: grid;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .footer-help strong {
+      color: var(--accent);
+    }
+
+    .bottom-nav {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 76px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 8px 12px 12px;
+      background: rgba(247, 249, 248, .92);
+      border-top: 1px solid var(--border);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-item {
+      color: var(--ink-3);
+      text-decoration: none;
+      display: grid;
+      justify-items: center;
+      align-content: center;
+      gap: 3px;
+      min-height: 52px;
+      border-radius: 14px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .nav-item.active {
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .feedback-view {
+      display: none;
+      min-height: calc(100svh - 42px);
+      background: var(--page);
+      color: var(--ink-1);
+      position: relative;
+      padding-bottom: 88px;
+    }
+
+    .phone.show-feedback .hero,
+    .phone.show-feedback main,
+    .phone.show-feedback .bottom-nav,
+    .phone.show-online-alarm .hero,
+    .phone.show-online-alarm main,
+    .phone.show-online-alarm .bottom-nav,
+    .phone.show-police .hero,
+    .phone.show-police main,
+    .phone.show-police .bottom-nav {
+      display: none;
+    }
+
+    .phone.show-feedback .report-view {
+      display: block;
+    }
+
+    .phone.show-online-alarm .online-alarm-view {
+      display: block;
+    }
+
+    .phone.show-police .police-view {
+      display: block;
+    }
+
+    .feedback-header {
+      height: 64px;
+      background: linear-gradient(135deg, var(--rail), var(--rail-2));
+      color: #f8fbff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      font-weight: 900;
+      font-size: 17px;
+    }
+
+    .back-button {
+      position: absolute;
+      left: 12px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      color: #f8fbff;
+      background: transparent;
+      display: grid;
+      place-items: center;
+    }
+
+    .feedback-header .wx-controls {
+      position: absolute;
+      right: 10px;
+      background: rgba(248, 251, 250, .14);
+      border-color: rgba(248, 251, 255, .2);
+    }
+
+    .feedback-content {
+      padding: 16px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .notice-card,
+    .feedback-card {
+      border-radius: 12px;
+      border: 1px solid rgba(16, 38, 38, .06);
+      box-shadow: var(--shadow);
+    }
+
+    .notice-card {
+      padding: 14px;
+      background: #fff7ec;
+      color: #5d4010;
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    .notice-card strong {
+      color: #3d2a09;
+    }
+
+    .feedback-card {
+      padding: 16px 12px;
+      background: var(--panel);
+    }
+
+    .feedback-card h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .feedback-card h2 small {
+      font-size: 12px;
+      color: var(--ink-3);
+      font-weight: 600;
+    }
+
+    .mode-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .mode-option {
+      min-height: 50px;
+      border-radius: 4px;
+      background: #f5f5f4;
+      color: var(--ink-1);
+      border: 1px solid transparent;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .mode-option.active {
+      color: var(--accent);
+      background: var(--accent-soft);
+      border-color: var(--accent);
+    }
+
+    .mode-option.active::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 0;
+      height: 0;
+      border-top: 16px solid var(--accent);
+      border-left: 16px solid transparent;
+    }
+
+    .field-label {
+      margin: 12px 0 8px;
+      color: var(--ink-1);
+      font-weight: 700;
+    }
+
+    .textarea-wrap {
+      background: #f4f4f4;
+      border-radius: 2px;
+      min-height: 178px;
+      padding: 12px 10px 8px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 132px;
+      resize: none;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--ink-1);
+      font: inherit;
+      line-height: 1.5;
+    }
+
+    textarea::placeholder {
+      color: #8a939a;
+    }
+
+    .count {
+      align-self: flex-end;
+      color: var(--ink-1);
+      font-size: 12px;
+    }
+
+    .upload-row {
+      margin-top: 28px;
+    }
+
+    .upload-row p {
+      margin: 0 0 8px;
+      color: var(--ink-3);
+      line-height: 1.5;
+    }
+
+    .upload-row strong {
+      color: var(--ink-1);
+      font-size: 15px;
+    }
+
+    .square-action {
+      width: 72px;
+      height: 72px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: grid;
+      place-items: center;
+    }
+
+    .attachment-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .square-action.image {
+      color: var(--ink-2);
+    }
+
+    .submit-bar {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 14px 16px 18px;
+      background: rgba(233, 238, 237, .92);
+    }
+
+    .submit-button {
+      width: 100%;
+      min-height: 48px;
+      border-radius: 12px;
+      color: #f8fbff;
+      font-weight: 800;
+      font-size: 16px;
+      background: linear-gradient(135deg, var(--accent), var(--rail-2));
+    }
+
+    .choice-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .choice-button {
+      min-height: 40px;
+      border-radius: 12px;
+      background: var(--panel-2);
+      color: var(--ink-2);
+      border: 1px solid transparent;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+    }
+
+    .choice-button::before {
+      content: "";
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 2px solid rgba(52, 76, 80, .34);
+      background: var(--panel);
+      box-shadow: inset 0 0 0 3px var(--panel);
+    }
+
+    .choice-button.active {
+      color: var(--accent);
+      background: var(--accent-soft);
+      border-color: var(--accent);
+    }
+
+    .choice-button.active::before {
+      border-color: var(--accent);
+      background: var(--accent);
+    }
+
+    .online-alarm-view .feedback-header {
+      height: 56px;
+    }
+
+    .online-alarm-view .feedback-content {
+      padding: 10px 12px;
+      gap: 8px;
+    }
+
+    .online-alarm-view .notice-card {
+      padding: 8px 10px;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .online-alarm-view .feedback-card {
+      padding: 10px 10px;
+      border-radius: 12px;
+    }
+
+    .online-alarm-view .feedback-card h2 {
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .online-alarm-view .feedback-card h2 small {
+      display: block;
+      margin-top: 2px;
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .online-alarm-view .textarea-wrap {
+      min-height: 116px;
+      padding: 9px 9px 6px;
+    }
+
+    .online-alarm-view textarea {
+      min-height: 78px;
+      line-height: 1.42;
+    }
+
+    .online-alarm-view .voice-note {
+      min-height: 50px;
+      margin-top: 6px;
+      padding: 7px 10px;
+    }
+
+    .online-alarm-view .voice-note .square-action {
+      width: 40px;
+      height: 40px;
+    }
+
+    .online-alarm-view .voice-note strong {
+      margin-bottom: 2px;
+    }
+
+    .online-alarm-view .submit-bar {
+      padding: 10px 12px 12px;
+    }
+
+    .online-alarm-view .submit-button {
+      min-height: 44px;
+    }
+
+    .voice-note {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 64px;
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: var(--panel-2);
+      color: var(--ink-2);
+    }
+
+    .voice-note .square-action {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+    }
+
+    .voice-note strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink-1);
+    }
+
+    .voice-note span {
+      color: var(--ink-3);
+      font-size: 12px;
+    }
+
+    .call-sheet {
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      display: none;
+      align-items: flex-end;
+      background: rgba(16, 36, 38, .36);
+    }
+
+    .call-sheet.show {
+      display: flex;
+    }
+
+    .call-panel {
+      width: 100%;
+      padding: 20px 16px 18px;
+      border-radius: 24px 24px 0 0;
+      background: var(--panel);
+      box-shadow: 0 -24px 70px rgba(16, 36, 38, .2);
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .call-icon {
+      width: 54px;
+      height: 54px;
+      margin: 0 auto 12px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      color: var(--on-accent);
+      background: linear-gradient(135deg, var(--accent), var(--rail-2));
+    }
+
+    .call-panel h2 {
+      margin: 0 0 6px;
+      font-size: 18px;
+    }
+
+    .call-panel p {
+      margin: 0 0 16px;
+      color: var(--ink-3);
+      line-height: 1.5;
+    }
+
+    .call-number {
+      color: var(--accent);
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 16px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .call-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .call-actions button {
+      min-height: 46px;
+      border-radius: 14px;
+      font-weight: 800;
+    }
+
+    .cancel-call {
+      color: var(--ink-2);
+      background: var(--panel-2);
+    }
+
+    .confirm-call {
+      color: var(--on-accent);
+      background: var(--accent);
+    }
+
+    .police-view {
+      display: none;
+      min-height: calc(100svh - 42px);
+      background: var(--page);
+      padding-bottom: 16px;
+    }
+
+    .police-summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      padding: 12px;
+    }
+
+    .summary-tile {
+      min-height: 62px;
+      border-radius: 14px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      display: grid;
+      place-items: center;
+      gap: 2px;
+      padding: 8px 4px;
+    }
+
+    .summary-tile strong {
+      font-size: 20px;
+      line-height: 1;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .summary-tile span {
+      color: var(--ink-3);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .police-tabs {
+      display: flex;
+      gap: 8px;
+      padding: 0 12px 10px;
+      overflow-x: auto;
+    }
+
+    .time-filter {
+      padding: 0 12px 10px;
+    }
+
+    .time-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .time-tab {
+      min-height: 34px;
+      border-radius: 999px;
+      color: var(--ink-2);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .time-tab.active {
+      color: var(--on-accent);
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .date-range {
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .date-range.show {
+      display: grid;
+    }
+
+    .date-range input {
+      width: 100%;
+      min-height: 36px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--ink-2);
+      font: inherit;
+      font-size: 12px;
+      padding: 0 8px;
+    }
+
+    .police-tab {
+      flex: 0 0 auto;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      color: var(--ink-2);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .police-tab.active {
+      color: var(--on-accent);
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .report-list {
+      display: grid;
+      gap: 10px;
+      padding: 0 12px 14px;
+    }
+
+    .report-card {
+      border-radius: 16px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 12px;
+    }
+
+    .report-card[hidden] {
+      display: none;
+    }
+
+    .report-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .report-top h2 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      line-height: 1.25;
+    }
+
+    .report-meta {
+      color: var(--ink-3);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .status-badge {
+      flex: 0 0 auto;
+      min-height: 26px;
+      padding: 0 9px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 900;
+      background: var(--panel-2);
+      color: var(--ink-2);
+    }
+
+    .status-badge.pending {
+      color: #9c4a38;
+      background: rgba(156, 74, 56, .1);
+    }
+
+    .status-badge.accepted {
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .status-badge.unfinished {
+      color: var(--warn);
+      background: rgba(183, 122, 22, .12);
+    }
+
+    .status-badge.done {
+      color: #2f6b4f;
+      background: rgba(47, 107, 79, .1);
+    }
+
+    .report-desc {
+      margin: 0;
+      color: var(--ink-2);
+      line-height: 1.48;
+      font-size: 13px;
+    }
+
+    .report-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+
+    .report-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .report-tag {
+      min-height: 24px;
+      padding: 0 8px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      color: var(--ink-3);
+      background: var(--panel-2);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .report-action {
+      min-height: 32px;
+      padding: 0 12px;
+      border-radius: 999px;
+      color: var(--on-accent);
+      background: var(--accent);
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 20px;
+      transform: translate(-50%, 16px);
+      opacity: 0;
+      pointer-events: none;
+      min-width: 220px;
+      max-width: calc(100% - 32px);
+      padding: 12px 14px;
+      border-radius: 14px;
+      color: var(--on-accent);
+      background: rgba(16, 36, 38, .92);
+      box-shadow: 0 18px 44px rgba(16, 36, 38, .22);
+      transition: opacity .22s ease, transform .22s ease;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    .fill-icon {
+      fill: currentColor;
+      stroke: none;
+    }
+
+    @media (max-width: 390px) {
+      body {
+        padding: 0;
+        background: var(--screen);
+      }
+
+      .phone {
+        min-height: 100svh;
+        border-radius: 0;
+        border: 0;
+      }
+
+      .brand h1 {
+        font-size: 34px;
+      }
+
+      .service-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="phone" role="application" aria-label="警民通市民报警小程序首页">
+    <div class="status-bar" aria-hidden="true"></div>
+    <header class="hero">
+      <div class="mini-app-bar" aria-label="小程序工具栏">
+        <button class="switch-button" type="button" data-view="police" aria-label="切换到民警端">
+          <svg aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path><path d="m9 12 2 2 4-5"></path></svg>
+        </button>
+        <div class="wx-controls" aria-hidden="true">
+          <span>···</span>
+          <span>－</span>
+          <span>○</span>
+        </div>
+      </div>
+      <div class="brand-row">
+        <div class="brand">
+          <h1>警民通</h1>
+          <p>接警更快，联动更近，守护更稳</p>
+        </div>
+        <a class="profile-link" href="#profile" data-action="打开个人中心">
+          <svg aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          个人中心
+        </a>
+      </div>
+      <button class="reward" type="button" data-action="进入举报有奖">
+        <svg aria-hidden="true"><path d="M3 11v2a2 2 0 0 0 2 2h2l5 4V5L7 9H5a2 2 0 0 0-2 2Z"></path><path d="M16 9a4 4 0 0 1 0 6"></path></svg>
+        举报有奖
+      </button>
+      <div class="city-mark" aria-hidden="true">
+        <svg viewBox="0 0 120 100">
+          <path d="M16 76h88"></path>
+          <path d="M24 76V38h18v38"></path>
+          <path d="M50 76V20h24v56"></path>
+          <path d="M82 76V48h16v28"></path>
+          <path d="M54 30h16M54 42h16M54 54h16M28 48h10M28 58h10"></path>
+        </svg>
+      </div>
+    </header>
+
+    <main id="main">
+      <div class="location" aria-label="当前位置">
+        <svg aria-hidden="true"><path d="M12 22s7-4.35 7-11a7 7 0 1 0-14 0c0 6.65 7 11 7 11Z"></path><circle cx="12" cy="11" r="2"></circle></svg>
+        <span>您现在所在位置：<strong>官埠桥派出所一警</strong></span>
+        <button class="close-location" type="button" aria-label="关闭位置提示">×</button>
+      </div>
+
+      <div class="alarm-card" aria-label="报警入口">
+        <div class="alarm-grid">
+          <button class="alarm-action hot" type="button" data-call-title="110报警电话" data-call-number="110">
+            <span class="icon-chip"><svg aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 3.08 5.18 2 2 0 0 1 5.06 3h3a2 2 0 0 1 2 1.72c.12.9.32 1.77.6 2.61a2 2 0 0 1-.45 2.11L9 10.65a16 16 0 0 0 4.35 4.35l1.21-1.21a2 2 0 0 1 2.11-.45c.84.28 1.71.48 2.61.6A2 2 0 0 1 22 16.92Z"></path></svg></span>
+            <span><strong>如遇紧急、危急，请拨打 110</strong><span>一键呼叫公安报警电话</span></span>
+          </button>
+          <button class="alarm-action online" type="button" data-view="online-alarm">
+            <span class="icon-chip"><svg aria-hidden="true"><path d="M4 4h16v14H7l-3 3V4Z"></path><path d="M8 9h8M8 13h5"></path></svg></span>
+            <span><strong>不方便电话报警，请使用网络报警</strong><span>文字、图片、位置辅助说明情况</span></span>
+          </button>
+        </div>
+      </div>
+
+      <section aria-labelledby="station-title">
+        <div class="section-head">
+          <h2 id="station-title">家门口警务站</h2>
+          <span>按当前位置匹配</span>
+        </div>
+        <div class="station-card">
+          <div class="station-main">
+            <div>
+              <div class="station-list">
+                <div class="station-item">
+                  <svg aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path><path d="m9 12 2 2 4-5"></path></svg>
+                  <strong>官埠桥派出所</strong>
+                </div>
+                <div class="station-item">
+                  <svg aria-hidden="true"><path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 1 1 18 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span>一警务责任区</span>
+                </div>
+              </div>
+            </div>
+            <div class="officer" aria-label="责任民警蔡有为">
+              <div class="avatar" aria-hidden="true"></div>
+              <strong>蔡有为</strong>
+            </div>
+          </div>
+          <div class="station-actions">
+            <button class="soft-button" type="button" data-call-title="责任民警蔡有为" data-call-number="0715-8316110">
+              <svg aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 3.08 5.18 2 2 0 0 1 5.06 3h3a2 2 0 0 1 2 1.72"></path></svg>
+              给民警打电话
+            </button>
+            <button class="soft-button" type="button" data-view="feedback">
+              <svg aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h5"></path><path d="M15 3h6v6"></path><path d="m10 14 11-11"></path></svg>
+              反映情况
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="ai-title">
+        <div class="ai-card">
+          <div>
+            <h2 id="ai-title">AI警务站</h2>
+            <p>可咨询无犯罪记录证明、身份证、户籍、居住证等常见公安业务。</p>
+            <button class="ask-link" type="button" data-action="咨询公安业务">
+              问业务
+              <svg aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+          </div>
+          <div class="bot" aria-hidden="true">
+            <svg viewBox="0 0 64 64">
+              <path d="M32 13V7"></path>
+              <circle cx="32" cy="6" r="3"></circle>
+              <rect x="16" y="16" width="32" height="25" rx="10"></rect>
+              <path d="M16 30h-5a4 4 0 0 0-4 4v3"></path>
+              <path d="M48 30h5a4 4 0 0 1 4 4v3"></path>
+              <circle cx="25" cy="29" r="4"></circle>
+              <circle cx="39" cy="29" r="4"></circle>
+              <path d="M26 38h12"></path>
+              <path d="M22 45h20l4 12H18l4-12Z"></path>
+              <path d="M25 51h14"></path>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="service-title">
+        <div class="section-head">
+          <h2 id="service-title">便民服务</h2>
+          <span>预留扩展入口</span>
+        </div>
+        <div class="service-grid">
+          <button class="service is-reserved" type="button" data-action="交通违章举报">
+            <svg aria-hidden="true"><path d="M10 17h4"></path><path d="M4 17h2"></path><path d="M18 17h2"></path><path d="M5 17l1.6-6.4A2 2 0 0 1 8.54 9h6.92a2 2 0 0 1 1.94 1.6L19 17"></path><circle cx="7" cy="17" r="2"></circle><circle cx="17" cy="17" r="2"></circle></svg>
+            交通违章举报
+          </button>
+          <button class="service is-reserved" type="button" data-action="通行证办理">
+            <svg aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"></rect><path d="M8 7h8M8 11h8M8 15h5"></path></svg>
+            通行证办理
+          </button>
+          <button class="service" type="button" data-action="无犯罪记录证明">
+            <svg aria-hidden="true"><path d="M9 12l2 2 4-5"></path><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path></svg>
+            无犯罪证明
+          </button>
+          <button class="service" type="button" data-action="户籍业务">
+            <svg aria-hidden="true"><path d="M3 11 12 3l9 8"></path><path d="M5 10v10h14V10"></path><path d="M9 20v-6h6v6"></path></svg>
+            户籍业务
+          </button>
+          <button class="service" type="button" data-action="身份证业务">
+            <svg aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><circle cx="8" cy="12" r="2"></circle><path d="M13 10h5M13 14h4"></path></svg>
+            身份证业务
+          </button>
+          <button class="service" type="button" data-action="居住证办理">
+            <svg aria-hidden="true"><path d="M4 21V7l8-4 8 4v14"></path><path d="M9 21v-7h6v7"></path></svg>
+            居住证办理
+          </button>
+          <button class="service" type="button" data-action="线索上报">
+            <svg aria-hidden="true"><path d="M12 3v18"></path><path d="m8 7 4-4 4 4"></path><path d="M5 14h14"></path></svg>
+            线索上报
+          </button>
+          <button class="service" type="button" data-action="更多服务">
+            <svg aria-hidden="true"><circle cx="5" cy="12" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle></svg>
+            更多服务
+          </button>
+        </div>
+      </section>
+
+      <section class="footer-help" aria-label="服务热线">
+        <div>非公安业务请拨打 <strong>12345</strong></div>
+        <div>派出所监督电话：<strong>0715-8316110</strong></div>
+        <div>投诉渠道：<strong>12389</strong></div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="底部导航">
+      <a class="nav-item active" href="#main">
+        <svg aria-hidden="true"><path d="M3 11 12 3l9 8"></path><path d="M5 10v10h14V10"></path></svg>
+        首页
+      </a>
+      <a class="nav-item" href="#station-title">
+        <svg aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path></svg>
+        警务站
+      </a>
+      <a class="nav-item" href="#service-title">
+        <svg aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 8h10M7 12h10M7 16h6"></path></svg>
+        办事
+      </a>
+      <a class="nav-item" href="#profile" data-action="打开个人中心">
+        <svg aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        我的
+      </a>
+    </nav>
+
+    <section class="feedback-view report-view" aria-label="情况反映页面">
+      <header class="feedback-header">
+        <button class="back-button" type="button" aria-label="返回首页" data-back-home>
+          <svg aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
+        </button>
+        情况反映
+        <div class="wx-controls" aria-hidden="true">
+          <span>···</span>
+          <span>－</span>
+          <span>○</span>
+        </div>
+      </header>
+
+      <div class="feedback-content">
+        <div class="notice-card">
+          <strong>说明：</strong>请在此处反映您或他人遇到的危险风险、矛盾纠纷。非公安业务，请拨打12345。如若选择匿名反映，民警将无法看到您的联系方式。
+        </div>
+
+        <section class="feedback-card" aria-labelledby="mode-title">
+          <h2 id="mode-title">反映方式</h2>
+          <div class="mode-options" role="group" aria-label="选择反映方式">
+            <button class="mode-option active" type="button" data-mode="real">实名</button>
+            <button class="mode-option" type="button" data-mode="anonymous">匿名</button>
+          </div>
+        </section>
+
+        <section class="feedback-card" aria-labelledby="content-title">
+          <h2 id="content-title">反映内容 <small>您可以选择文字、语音或上传材料来描述反映内容</small></h2>
+          <div class="field-label">文字</div>
+          <div class="textarea-wrap">
+            <textarea id="feedbackText" maxlength="500" placeholder="请详细描述您要反映的内容，以便我们提供更好的服务"></textarea>
+            <span class="count"><span id="feedbackCount">0</span>/500</span>
+          </div>
+
+          <div class="upload-row">
+            <p><strong>语音</strong> 请用一段语音描述您要反映的内容，最长1分钟</p>
+            <button class="square-action" type="button" data-action="录制语音">
+              <svg aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><path d="M12 19v3"></path></svg>
+            </button>
+          </div>
+
+          <div class="upload-row">
+            <p><strong>上传材料</strong> 可以添加图片、视频或文件作为补充说明</p>
+            <div class="attachment-actions" aria-label="上传材料类型">
+              <button class="square-action image" type="button" data-action="上传图片" aria-label="上传图片">
+                <svg aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2Z"></path><circle cx="12" cy="13" r="4"></circle><path d="M18 11h3"></path><path d="M19.5 9.5v3"></path></svg>
+              </button>
+              <button class="square-action image" type="button" data-action="上传视频" aria-label="上传视频">
+                <svg aria-hidden="true"><rect x="3" y="5" width="14" height="14" rx="2"></rect><path d="m17 10 5-3v10l-5-3"></path><path d="M9 9v6l5-3-5-3Z"></path></svg>
+              </button>
+              <button class="square-action image" type="button" data-action="上传文件" aria-label="上传文件">
+                <svg aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"></path><path d="M14 2v6h6"></path><path d="M8 13h8M8 17h6"></path></svg>
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="submit-bar">
+        <button class="submit-button" type="button" data-submit-feedback>提交</button>
+      </div>
+    </section>
+
+    <section class="feedback-view online-alarm-view" aria-label="网络报警页面">
+      <header class="feedback-header">
+        <button class="back-button" type="button" aria-label="返回首页" data-back-home>
+          <svg aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
+        </button>
+        网络报警
+        <div class="wx-controls" aria-hidden="true">
+          <span>···</span>
+          <span>－</span>
+          <span>○</span>
+        </div>
+      </header>
+
+      <div class="feedback-content">
+        <div class="notice-card">
+          <strong>说明：</strong>紧急情况请优先拨打110。不方便电话报警时，可在此补充说明。
+        </div>
+
+        <section class="feedback-card" aria-labelledby="case-title">
+          <h2 id="case-title">案件描述 <small>请说明时间、地点、人员和现场情况</small></h2>
+          <div class="textarea-wrap">
+            <textarea id="caseText" maxlength="800" placeholder="请描述您要报警的具体情况，例如发生地点、事件经过、是否有人受伤等"></textarea>
+            <span class="count"><span id="caseCount">0</span>/800</span>
+          </div>
+        </section>
+
+        <section class="feedback-card" aria-labelledby="self-title">
+          <h2 id="self-title">是否本人报警</h2>
+          <div class="choice-grid" role="group" aria-label="是否本人报警">
+            <button class="choice-button active" type="button" data-choice-group="self" data-choice="本人报警">本人报警</button>
+            <button class="choice-button" type="button" data-choice-group="self" data-choice="代他人报警">代他人报警</button>
+          </div>
+        </section>
+
+        <section class="feedback-card" aria-labelledby="phone-title">
+          <h2 id="phone-title">是否方便接听电话</h2>
+          <div class="choice-grid" role="group" aria-label="是否方便接听电话">
+            <button class="choice-button active" type="button" data-choice-group="phone" data-choice="方便接听">方便接听</button>
+            <button class="choice-button" type="button" data-choice-group="phone" data-choice="暂不方便">暂不方便</button>
+          </div>
+        </section>
+
+        <section class="feedback-card" aria-labelledby="alarm-voice-title">
+          <h2 id="alarm-voice-title">报警留言 <small>可录音补充说明</small></h2>
+          <div class="voice-note">
+            <button class="square-action" type="button" data-action="录制报警留言" aria-label="录制报警留言">
+              <svg aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><path d="M12 19v3"></path></svg>
+            </button>
+            <div>
+              <strong>点击录音</strong>
+              <span>最长1分钟</span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="submit-bar">
+        <button class="submit-button" type="button" data-submit-online-alarm>提交报警</button>
+      </div>
+    </section>
+
+    <section class="police-view" aria-label="民警端收到的反映情况列表">
+      <header class="feedback-header">
+        <button class="back-button" type="button" aria-label="返回首页" data-back-home>
+          <svg aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
+        </button>
+        民警端
+        <div class="wx-controls" aria-hidden="true">
+          <span>···</span>
+          <span>－</span>
+          <span>○</span>
+        </div>
+      </header>
+
+      <div class="police-summary" aria-label="反映情况统计">
+        <div class="summary-tile"><strong>2</strong><span>未接收</span></div>
+        <div class="summary-tile"><strong>1</strong><span>已接收</span></div>
+        <div class="summary-tile"><strong>2</strong><span>未完成</span></div>
+        <div class="summary-tile"><strong>1</strong><span>已完成</span></div>
+      </div>
+
+      <div class="time-filter" aria-label="按时间筛选">
+        <div class="time-buttons">
+          <button class="time-tab active" type="button" data-time-filter="today">本日</button>
+          <button class="time-tab" type="button" data-time-filter="all">全部</button>
+          <button class="time-tab" type="button" data-time-filter="range">时间段</button>
+        </div>
+        <div class="date-range" aria-label="选择起止日期">
+          <input type="date" id="rangeStart" value="2026-08-13" aria-label="开始日期">
+          <input type="date" id="rangeEnd" value="2026-08-14" aria-label="结束日期">
+        </div>
+      </div>
+
+      <div class="police-tabs" role="tablist" aria-label="按处理状态筛选">
+        <button class="police-tab active" type="button" data-police-filter="all">全部</button>
+        <button class="police-tab" type="button" data-police-filter="pending">未接收</button>
+        <button class="police-tab" type="button" data-police-filter="accepted">已接收</button>
+        <button class="police-tab" type="button" data-police-filter="unfinished">未完成</button>
+        <button class="police-tab" type="button" data-police-filter="done">已完成</button>
+      </div>
+
+      <div class="report-list">
+        <article class="report-card" data-report-status="pending" data-report-date="2026-08-14">
+          <div class="report-top">
+            <div>
+              <h2>邻里噪声纠纷反映</h2>
+              <div class="report-meta">今天 09:42 · 情况反映 · 实名</div>
+            </div>
+            <span class="status-badge pending">未接收</span>
+          </div>
+          <p class="report-desc">官埠桥社区3栋晚间持续噪声，已多次沟通无果，希望民警协助调解。</p>
+          <div class="report-foot">
+            <div class="report-tags"><span class="report-tag">矛盾纠纷</span><span class="report-tag">有图片</span></div>
+            <button class="report-action" type="button" data-action="接收反映">接收</button>
+          </div>
+        </article>
+
+        <article class="report-card" data-report-status="pending" data-report-date="2026-08-14">
+          <div class="report-top">
+            <div>
+              <h2>可疑人员徘徊线索</h2>
+              <div class="report-meta">今天 08:18 · 网络报警 · 匿名</div>
+            </div>
+            <span class="status-badge pending">未接收</span>
+          </div>
+          <p class="report-desc">小区南门附近有陌生人员多次停留拍照，反映人不方便接听电话。</p>
+          <div class="report-foot">
+            <div class="report-tags"><span class="report-tag">风险线索</span><span class="report-tag">有录音</span></div>
+            <button class="report-action" type="button" data-action="接收报警">接收</button>
+          </div>
+        </article>
+
+        <article class="report-card" data-report-status="accepted" data-report-date="2026-08-13">
+          <div class="report-top">
+            <div>
+              <h2>车辆占用消防通道</h2>
+              <div class="report-meta">昨天 19:30 · 情况反映 · 实名</div>
+            </div>
+            <span class="status-badge accepted">已接收</span>
+          </div>
+          <p class="report-desc">临街商铺门口车辆长期占道，影响居民通行和消防安全。</p>
+          <div class="report-foot">
+            <div class="report-tags"><span class="report-tag">交通秩序</span><span class="report-tag">有视频</span></div>
+            <button class="report-action" type="button" data-action="标记处理中">处理</button>
+          </div>
+        </article>
+
+        <article class="report-card" data-report-status="unfinished" data-report-date="2026-08-13">
+          <div class="report-top">
+            <div>
+              <h2>家庭矛盾求助</h2>
+              <div class="report-meta">昨天 16:05 · 网络报警 · 实名</div>
+            </div>
+            <span class="status-badge unfinished">未完成</span>
+          </div>
+          <p class="report-desc">报警人称家中发生争吵，目前情绪激动，已接收，等待回访确认。</p>
+          <div class="report-foot">
+            <div class="report-tags"><span class="report-tag">需回访</span><span class="report-tag">方便接听</span></div>
+            <button class="report-action" type="button" data-action="完成处理">完成</button>
+          </div>
+        </article>
+
+        <article class="report-card" data-report-status="done" data-report-date="2026-08-13">
+          <div class="report-top">
+            <div>
+              <h2>身份证业务咨询转办</h2>
+              <div class="report-meta">8月13日 14:21 · 情况反映 · 实名</div>
+            </div>
+            <span class="status-badge done">已完成</span>
+          </div>
+          <p class="report-desc">已告知居民办理材料和窗口时间，并引导至户籍业务入口。</p>
+          <div class="report-foot">
+            <div class="report-tags"><span class="report-tag">业务咨询</span><span class="report-tag">已回访</span></div>
+            <button class="report-action" type="button" data-action="查看记录">查看</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="call-sheet" aria-hidden="true">
+      <div class="call-panel" role="dialog" aria-modal="true" aria-labelledby="callTitle">
+        <div class="call-icon" aria-hidden="true">
+          <svg><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 3.08 5.18 2 2 0 0 1 5.06 3h3a2 2 0 0 1 2 1.72"></path></svg>
+        </div>
+        <h2 id="callTitle">模拟呼叫</h2>
+        <p id="callSubtitle">正在准备呼叫</p>
+        <div class="call-number" id="callNumber">110</div>
+        <div class="call-actions">
+          <button class="cancel-call" type="button" data-close-call>取消</button>
+          <button class="confirm-call" type="button" data-confirm-call>模拟拨出</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const phone = document.querySelector('.phone');
+    const toast = document.querySelector('.toast');
+    const feedbackText = document.querySelector('#feedbackText');
+    const feedbackCount = document.querySelector('#feedbackCount');
+    const caseText = document.querySelector('#caseText');
+    const caseCount = document.querySelector('#caseCount');
+    const callSheet = document.querySelector('.call-sheet');
+    const callTitle = document.querySelector('#callTitle');
+    const callSubtitle = document.querySelector('#callSubtitle');
+    const callNumber = document.querySelector('#callNumber');
+    let toastTimer;
+
+    function showToast(text) {
+      toast.textContent = text;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+    }
+
+    document.querySelectorAll('[data-action]').forEach((el) => {
+      el.addEventListener('click', (event) => {
+        const action = event.currentTarget.dataset.action;
+        showToast(`${action}功能已预留`);
+      });
+    });
+
+    document.querySelectorAll('[data-view="feedback"]').forEach((el) => {
+      el.addEventListener('click', () => {
+        phone.classList.remove('show-online-alarm', 'show-police');
+        phone.classList.add('show-feedback');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    document.querySelectorAll('[data-view="online-alarm"]').forEach((el) => {
+      el.addEventListener('click', () => {
+        phone.classList.remove('show-feedback', 'show-police');
+        phone.classList.add('show-online-alarm');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    document.querySelectorAll('[data-view="police"]').forEach((el) => {
+      el.addEventListener('click', () => {
+        phone.classList.remove('show-feedback', 'show-online-alarm');
+        phone.classList.add('show-police');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    document.querySelectorAll('[data-back-home]').forEach((button) => {
+      button.addEventListener('click', () => {
+        phone.classList.remove('show-feedback', 'show-online-alarm', 'show-police');
+      });
+    });
+
+    document.querySelectorAll('[data-mode]').forEach((button) => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('[data-mode]').forEach((item) => item.classList.remove('active'));
+        button.classList.add('active');
+      });
+    });
+
+    feedbackText.addEventListener('input', () => {
+      feedbackCount.textContent = feedbackText.value.length;
+    });
+
+    caseText.addEventListener('input', () => {
+      caseCount.textContent = caseText.value.length;
+    });
+
+    document.querySelectorAll('[data-choice-group]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const group = button.dataset.choiceGroup;
+        document.querySelectorAll(`[data-choice-group="${group}"]`).forEach((item) => item.classList.remove('active'));
+        button.classList.add('active');
+      });
+    });
+
+    document.querySelectorAll('[data-call-number]').forEach((button) => {
+      button.addEventListener('click', () => {
+        callTitle.textContent = '模拟呼叫';
+        callSubtitle.textContent = button.dataset.callTitle;
+        callNumber.textContent = button.dataset.callNumber;
+        callSheet.classList.add('show');
+        callSheet.setAttribute('aria-hidden', 'false');
+      });
+    });
+
+    const dateRange = document.querySelector('.date-range');
+    const rangeStart = document.querySelector('#rangeStart');
+    const rangeEnd = document.querySelector('#rangeEnd');
+    let activeStatusFilter = 'all';
+    let activeTimeFilter = 'today';
+
+    function applyPoliceFilters() {
+      const start = rangeStart.value;
+      const end = rangeEnd.value;
+      document.querySelectorAll('[data-report-status]').forEach((card) => {
+        const statusMatch = activeStatusFilter === 'all' || card.dataset.reportStatus === activeStatusFilter;
+        let timeMatch = true;
+        if (activeTimeFilter === 'today') {
+          timeMatch = card.dataset.reportDate === '2026-08-14';
+        }
+        if (activeTimeFilter === 'range') {
+          timeMatch = (!start || card.dataset.reportDate >= start) && (!end || card.dataset.reportDate <= end);
+        }
+        card.hidden = !(statusMatch && timeMatch);
+      });
+    }
+
+    document.querySelectorAll('[data-police-filter]').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        activeStatusFilter = tab.dataset.policeFilter;
+        document.querySelectorAll('[data-police-filter]').forEach((item) => item.classList.remove('active'));
+        tab.classList.add('active');
+        applyPoliceFilters();
+      });
+    });
+
+    document.querySelectorAll('[data-time-filter]').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        activeTimeFilter = tab.dataset.timeFilter;
+        document.querySelectorAll('[data-time-filter]').forEach((item) => item.classList.remove('active'));
+        tab.classList.add('active');
+        dateRange.classList.toggle('show', activeTimeFilter === 'range');
+        applyPoliceFilters();
+      });
+    });
+
+    [rangeStart, rangeEnd].forEach((input) => input.addEventListener('change', applyPoliceFilters));
+    applyPoliceFilters();
+
+    document.querySelector('[data-close-call]').addEventListener('click', () => {
+      callSheet.classList.remove('show');
+      callSheet.setAttribute('aria-hidden', 'true');
+    });
+
+    document.querySelector('[data-confirm-call]').addEventListener('click', () => {
+      showToast(`正在模拟呼叫 ${callNumber.textContent}`);
+      callSheet.classList.remove('show');
+      callSheet.setAttribute('aria-hidden', 'true');
+    });
+
+    document.querySelector('[data-submit-feedback]').addEventListener('click', () => {
+      const hasText = feedbackText.value.trim().length > 0;
+      if (!hasText) {
+        showToast('请先填写文字内容，或使用语音、图片补充');
+        feedbackText.focus();
+        return;
+      }
+      showToast('情况反映已提交');
+      feedbackText.value = '';
+      feedbackCount.textContent = '0';
+    });
+
+    document.querySelector('[data-submit-online-alarm]').addEventListener('click', () => {
+      const hasCase = caseText.value.trim().length > 0;
+      if (!hasCase) {
+        showToast('请先填写案件描述');
+        caseText.focus();
+        return;
+      }
+      showToast('网络报警已提交');
+      caseText.value = '';
+      caseCount.textContent = '0';
+    });
+
+    document.querySelector('.close-location').addEventListener('click', () => {
+      document.querySelector('.location').style.display = 'none';
+    });
+  </script>
+</body>
+</html>
