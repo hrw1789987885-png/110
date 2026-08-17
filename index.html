@@ -46,7 +46,7 @@
       font-size: 14px;
       letter-spacing: 0;
       display: grid;
-      place-items: start center;
+      place-items: center;
       padding: 18px 10px 24px;
     }
 
@@ -68,22 +68,27 @@
 
     .phone {
       width: min(100%, 430px);
-      min-height: calc(100svh - 42px);
+      height: min(812px, calc(100svh - 42px));
+      min-height: 620px;
       overflow: hidden;
       border-radius: var(--r-lg);
       background: var(--screen);
       box-shadow: var(--shadow-lg);
       border: 1px solid rgba(16, 38, 38, .1);
       position: relative;
+      display: flex;
+      flex-direction: column;
     }
 
     .status-bar {
+      flex: 0 0 auto;
       height: 26px;
       background: var(--rail);
     }
 
     .hero {
-      min-height: 220px;
+      flex: 0 0 220px;
+      min-height: 0;
       color: var(--on-accent);
       padding: 12px 16px 18px;
       background:
@@ -243,10 +248,14 @@
     }
 
     main {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
       padding: 0 16px 92px;
       margin-top: -12px;
       position: relative;
       z-index: 2;
+      -webkit-overflow-scrolling: touch;
     }
 
     .location {
@@ -565,8 +574,9 @@
       bottom: 0;
       height: 76px;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      padding: 8px 12px 12px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      padding: 8px 42px 12px;
       background: rgba(247, 249, 248, .92);
       border-top: 1px solid var(--border);
       backdrop-filter: blur(16px);
@@ -592,11 +602,12 @@
 
     .feedback-view {
       display: none;
-      min-height: calc(100svh - 42px);
+      height: calc(100% - 26px);
       background: var(--page);
       color: var(--ink-1);
       position: relative;
       padding-bottom: 88px;
+      overflow: hidden;
     }
 
     .phone.show-feedback .hero,
@@ -614,6 +625,11 @@
       display: none;
     }
 
+    .phone.show-profile .hero,
+    .phone.show-profile main {
+      display: none;
+    }
+
     .phone.show-feedback .report-view {
       display: block;
     }
@@ -627,6 +643,10 @@
     }
 
     .phone.show-admin .admin-view {
+      display: block;
+    }
+
+    .phone.show-profile .profile-view {
       display: block;
     }
 
@@ -665,6 +685,175 @@
       padding: 16px;
       display: grid;
       gap: 16px;
+      height: calc(100% - 64px - 88px);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .profile-view {
+      display: none;
+      height: calc(100% - 26px - 76px);
+      background: var(--page);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      color: var(--ink-1);
+    }
+
+    .profile-hero {
+      padding: 18px 16px 16px;
+      color: var(--on-accent);
+      background:
+        linear-gradient(135deg, rgba(23, 58, 69, .96), rgba(33, 84, 106, .9)),
+        url("assets/title-bg.png") center 42% / cover no-repeat;
+    }
+
+    .profile-titlebar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .profile-titlebar h2 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .profile-id {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .profile-avatar {
+      width: 58px;
+      height: 58px;
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      color: var(--rail);
+      background: #f8fbfa;
+      font-size: 24px;
+      font-weight: 900;
+      box-shadow: 0 12px 28px rgba(16, 36, 38, .22);
+    }
+
+    .profile-id strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 18px;
+    }
+
+    .profile-id span {
+      color: rgba(248, 251, 250, .78);
+      font-size: 12px;
+    }
+
+    .profile-content {
+      padding: 14px 16px 92px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .profile-summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .profile-summary div,
+    .profile-menu,
+    .about-card {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .profile-summary div {
+      min-height: 64px;
+      border-radius: 14px;
+      padding: 10px 8px;
+      display: grid;
+      align-content: center;
+      gap: 3px;
+      text-align: center;
+    }
+
+    .profile-summary strong {
+      color: var(--accent);
+      font-size: 18px;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .profile-summary span {
+      color: var(--ink-3);
+      font-size: 12px;
+    }
+
+    .profile-menu {
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .profile-menu button {
+      width: 100%;
+      min-height: 58px;
+      padding: 0 14px;
+      background: transparent;
+      color: var(--ink-1);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .profile-menu button:last-child {
+      border-bottom: 0;
+    }
+
+    .profile-menu .menu-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+      background: var(--accent-soft);
+      flex: 0 0 auto;
+    }
+
+    .profile-menu strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 15px;
+    }
+
+    .profile-menu span {
+      color: var(--ink-3);
+      font-size: 12px;
+    }
+
+    .profile-menu .chevron {
+      margin-left: auto;
+      color: var(--ink-3);
+      flex: 0 0 auto;
+    }
+
+    .about-card {
+      border-radius: 18px;
+      padding: 14px;
+      line-height: 1.65;
+      color: var(--ink-2);
+    }
+
+    .about-card strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink-1);
+      font-size: 15px;
     }
 
     .notice-card,
@@ -877,6 +1066,7 @@
     .online-alarm-view .feedback-content {
       padding: 10px 12px;
       gap: 8px;
+      height: calc(100% - 56px - 66px);
     }
 
     .online-alarm-view .notice-card {
@@ -1042,9 +1232,11 @@
     .police-view,
     .admin-view {
       display: none;
-      min-height: calc(100svh - 42px);
+      height: calc(100% - 26px);
       background: var(--page);
       padding-bottom: 16px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .police-summary {
@@ -2419,6 +2611,11 @@
       .service-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+
+      .bottom-nav {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -2442,7 +2639,7 @@
           <button class="entry-button" type="button" data-open-pc-admin>后台</button>
         </div>
         <div class="entry-group">
-          <a class="profile-link" href="#profile" data-action="打开个人中心">个人中心</a>
+          <a class="profile-link" href="#profile" data-view="profile">个人中心</a>
           <div class="wx-controls" aria-hidden="true">
             <span>···</span>
             <span>－</span>
@@ -2580,23 +2777,76 @@
     </main>
 
     <nav class="bottom-nav" aria-label="底部导航">
-      <a class="nav-item active" href="#main">
+      <a class="nav-item active" href="#main" data-home-nav>
         <svg aria-hidden="true"><path d="M3 11 12 3l9 8"></path><path d="M5 10v10h14V10"></path></svg>
-        首页
+        主页
       </a>
-      <a class="nav-item" href="#station-title">
-        <svg aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path></svg>
-        警务站
-      </a>
-      <a class="nav-item" href="#service-title">
-        <svg aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 8h10M7 12h10M7 16h6"></path></svg>
-        办事
-      </a>
-      <a class="nav-item" href="#profile" data-action="打开个人中心">
+      <a class="nav-item" href="#profile" data-view="profile">
         <svg aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0"></path><circle cx="12" cy="7" r="4"></circle></svg>
         我的
       </a>
     </nav>
+
+    <section class="profile-view" aria-label="我的页面">
+      <div class="profile-hero">
+        <div class="profile-titlebar">
+          <h2>我的</h2>
+          <div class="wx-controls" aria-hidden="true">
+            <span>···</span>
+            <span>－</span>
+            <span>○</span>
+          </div>
+        </div>
+        <div class="profile-id">
+          <div class="profile-avatar" aria-hidden="true">民</div>
+          <div>
+            <strong>市民用户</strong>
+            <span>已绑定手机号 138****2026</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-content">
+        <div class="profile-summary" aria-label="我的事项统计">
+          <div><strong>2</strong><span>情况反映</span></div>
+          <div><strong>1</strong><span>报警查询</span></div>
+          <div><strong>0</strong><span>待补充</span></div>
+        </div>
+
+        <div class="profile-menu" aria-label="我的功能">
+          <button type="button" data-action="查看我的账号信息">
+            <span class="menu-icon"><svg aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0"></path><circle cx="12" cy="7" r="4"></circle></svg></span>
+            <span><strong>我的账号信息</strong><span>姓名、手机号、实名状态</span></span>
+            <svg class="chevron" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+          </button>
+          <button type="button" data-view="feedback">
+            <span class="menu-icon"><svg aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h5"></path><path d="M15 3h6v6"></path><path d="m10 14 11-11"></path></svg></span>
+            <span><strong>情况反映信息</strong><span>查看或继续提交反映情况</span></span>
+            <svg class="chevron" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+          </button>
+          <button type="button" data-action="查询报警处理结果">
+            <span class="menu-icon"><svg aria-hidden="true"><path d="M4 4h16v14H7l-3 3V4Z"></path><path d="M8 9h8M8 13h5"></path></svg></span>
+            <span><strong>报警结果查询</strong><span>网络报警受理、办理进度</span></span>
+            <svg class="chevron" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+          </button>
+          <button type="button" data-action="提交系统建设意见">
+            <span class="menu-icon"><svg aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg></span>
+            <span><strong>系统建设意见</strong><span>对警民通功能提出建议</span></span>
+            <svg class="chevron" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+          </button>
+          <button type="button" data-action="查看关于警民通">
+            <span class="menu-icon"><svg aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></span>
+            <span><strong>关于警民通</strong><span>平台介绍、服务说明</span></span>
+            <svg class="chevron" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+          </button>
+        </div>
+
+        <div class="about-card">
+          <strong>警民通</strong>
+          面向市民提供网络报警、情况反映、便民服务和警务咨询入口，帮助群众更快找到身边警务资源。
+        </div>
+      </div>
+    </section>
 
     <section class="feedback-view report-view" aria-label="情况反映页面">
       <header class="feedback-header">
@@ -3337,7 +3587,7 @@
     const callTitle = document.querySelector('#callTitle');
     const callSubtitle = document.querySelector('#callSubtitle');
     const callNumber = document.querySelector('#callNumber');
-    const viewClassNames = ['show-feedback', 'show-online-alarm', 'show-police', 'show-admin'];
+    const viewClassNames = ['show-feedback', 'show-online-alarm', 'show-police', 'show-admin', 'show-profile'];
     let activeRole = 'citizen';
     let toastTimer;
 
@@ -3354,13 +3604,24 @@
         phone.classList.add(`show-${viewName}`);
       }
       activeRole = viewName === 'police' || viewName === 'admin' ? viewName : 'citizen';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.querySelectorAll('.bottom-nav .nav-item').forEach((item) => item.classList.remove('active'));
+      document.querySelector(viewName === 'profile' ? '[data-view="profile"].nav-item' : '[data-home-nav]')?.classList.add('active');
+      document.querySelectorAll('main, .profile-view, .feedback-view, .police-view, .admin-view').forEach((panel) => {
+        panel.scrollTop = 0;
+      });
     }
 
     document.querySelectorAll('[data-action]').forEach((el) => {
       el.addEventListener('click', (event) => {
         const action = event.currentTarget.dataset.action;
         showToast(`${action}功能已预留`);
+      });
+    });
+
+    document.querySelectorAll('[data-home-nav]').forEach((el) => {
+      el.addEventListener('click', (event) => {
+        event.preventDefault();
+        setView('');
       });
     });
 
@@ -3385,6 +3646,13 @@
     document.querySelectorAll('[data-view="admin"]').forEach((el) => {
       el.addEventListener('click', () => {
         setView('admin');
+      });
+    });
+
+    document.querySelectorAll('[data-view="profile"]').forEach((el) => {
+      el.addEventListener('click', (event) => {
+        event.preventDefault();
+        setView('profile');
       });
     });
 
