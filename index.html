@@ -1916,6 +1916,451 @@
       line-height: 1.45;
     }
 
+    body.pc-admin-open {
+      display: block;
+      place-items: initial;
+      padding: 0;
+      min-width: 1180px;
+      background:
+        radial-gradient(700px 310px at 42% -140px, rgba(18, 104, 216, .18), transparent 70%),
+        linear-gradient(180deg, #edf3fb, #dfeaf8);
+    }
+
+    body.pc-admin-open .phone {
+      display: none;
+    }
+
+    .pc-admin-view {
+      display: none;
+      min-height: 100vh;
+      color: #10243f;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    body.pc-admin-open .pc-admin-view {
+      display: block;
+    }
+
+    .pc-shell {
+      display: grid;
+      grid-template-columns: 248px 1fr;
+      min-height: 100vh;
+    }
+
+    .pc-sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 22px 16px;
+      color: #f4faf9;
+      background: linear-gradient(180deg, #092b63, #061b43);
+    }
+
+    .pc-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 6px 20px;
+      border-bottom: 1px solid rgba(248, 251, 250, .12);
+    }
+
+    .pc-brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      background: rgba(248, 251, 250, .12);
+      border: 1px solid rgba(248, 251, 250, .14);
+      font-weight: 900;
+    }
+
+    .pc-brand h1 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.1;
+    }
+
+    .pc-brand span {
+      display: block;
+      margin-top: 4px;
+      color: rgba(244, 250, 249, .68);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .pc-nav {
+      display: grid;
+      gap: 6px;
+      margin-top: 18px;
+    }
+
+    .pc-nav a {
+      min-height: 42px;
+      padding: 0 12px;
+      border-radius: 12px;
+      color: rgba(244, 250, 249, .76);
+      display: flex;
+      align-items: center;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .pc-nav a.active,
+    .pc-nav a:hover {
+      color: #f8fbfa;
+      background: rgba(248, 251, 250, .13);
+    }
+
+    .pc-sidebar-foot {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 18px;
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(248, 251, 250, .1);
+      border: 1px solid rgba(248, 251, 250, .12);
+      color: rgba(244, 250, 249, .72);
+      line-height: 1.55;
+      font-size: 12px;
+    }
+
+    .pc-main {
+      padding: 22px 26px 30px;
+    }
+
+    .pc-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 18px;
+    }
+
+    .pc-title h2 {
+      margin: 0 0 6px;
+      font-size: 26px;
+      line-height: 1.1;
+    }
+
+    .pc-title p {
+      margin: 0;
+      color: #697f98;
+      font-weight: 700;
+    }
+
+    .pc-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pc-search,
+    .pc-select,
+    .pc-button {
+      min-height: 40px;
+      border-radius: 999px;
+      border: 1px solid rgba(16, 51, 96, .09);
+      background: #fbfdff;
+      color: #334b68;
+      padding: 0 14px;
+      font: inherit;
+      font-weight: 800;
+    }
+
+    .pc-search {
+      width: 280px;
+      font-weight: 500;
+    }
+
+    .pc-button.primary {
+      color: #f8fbff;
+      background: #1268d8;
+      border-color: #1268d8;
+    }
+
+    .pc-kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .pc-kpi,
+    .pc-panel,
+    .pc-config-card {
+      border-radius: 14px;
+      background: #fbfdff;
+      border: 1px solid rgba(16, 51, 96, .09);
+      box-shadow: 0 18px 50px -38px rgba(9, 43, 99, .42);
+    }
+
+    .pc-kpi {
+      min-height: 116px;
+      padding: 16px;
+    }
+
+    .pc-kpi span {
+      display: block;
+      color: #697f98;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .pc-kpi strong {
+      display: block;
+      font-size: 30px;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .pc-kpi small {
+      display: block;
+      margin-top: 12px;
+      color: #1268d8;
+      font-weight: 900;
+    }
+
+    .pc-dashboard {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .pc-panel {
+      overflow: hidden;
+    }
+
+    .pc-panel-head {
+      min-height: 58px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid rgba(16, 51, 96, .09);
+    }
+
+    .pc-panel-head h3 {
+      margin: 0;
+      font-size: 17px;
+    }
+
+    .pc-panel-head span {
+      color: #697f98;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .pc-filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pc-filter {
+      min-height: 32px;
+      padding: 0 12px;
+      border-radius: 999px;
+      color: #334b68;
+      background: #eef5ff;
+      border: 1px solid transparent;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .pc-filter.active {
+      color: #f8fbff;
+      background: #1268d8;
+      border-color: #1268d8;
+    }
+
+    .pc-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .pc-table th,
+    .pc-table td {
+      padding: 13px 16px;
+      border-bottom: 1px solid rgba(16, 51, 96, .09);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .pc-table th {
+      color: #697f98;
+      background: #eef5ff;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .pc-case-title {
+      color: #10243f;
+      font-weight: 900;
+    }
+
+    .pc-muted {
+      color: #697f98;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .pc-badge {
+      min-height: 26px;
+      padding: 0 9px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .pc-badge.pending {
+      color: #9c4a38;
+      background: rgba(156, 74, 56, .1);
+    }
+
+    .pc-badge.accepted {
+      color: #1268d8;
+      background: rgba(18, 104, 216, .1);
+    }
+
+    .pc-badge.doing {
+      color: #b77a16;
+      background: rgba(183, 122, 22, .12);
+    }
+
+    .pc-badge.done {
+      color: #2f6b4f;
+      background: rgba(47, 107, 79, .1);
+    }
+
+    .pc-table-action {
+      min-height: 30px;
+      padding: 0 10px;
+      border-radius: 999px;
+      color: #1268d8;
+      background: rgba(18, 104, 216, .1);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .pc-side-stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .pc-detail,
+    .pc-mini-list {
+      padding: 16px;
+    }
+
+    .pc-detail h4 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .pc-detail p {
+      margin: 0 0 14px;
+      color: #334b68;
+      line-height: 1.6;
+    }
+
+    .pc-detail-grid,
+    .pc-bottom-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin: 14px 0;
+    }
+
+    .pc-detail-item,
+    .pc-mini-row {
+      padding: 10px;
+      border-radius: 12px;
+      background: #eef5ff;
+      border: 1px solid rgba(16, 51, 96, .09);
+    }
+
+    .pc-detail-item span {
+      display: block;
+      color: #697f98;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .pc-action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .pc-action-grid button {
+      min-height: 40px;
+      border-radius: 12px;
+      color: #334b68;
+      background: #eef5ff;
+      border: 1px solid rgba(16, 51, 96, .09);
+      font-weight: 900;
+    }
+
+    .pc-action-grid .primary {
+      color: #f8fbff;
+      background: #1268d8;
+      border-color: #1268d8;
+    }
+
+    .pc-mini-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .pc-mini-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .pc-mini-row strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .pc-mini-row span {
+      color: #697f98;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .pc-bottom-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .pc-config-card {
+      min-height: 140px;
+      padding: 16px;
+    }
+
+    .pc-config-card h3 {
+      margin: 0 0 10px;
+      font-size: 17px;
+    }
+
+    .pc-config-card p {
+      margin: 0;
+      color: #697f98;
+      line-height: 1.6;
+    }
+
     .toast {
       position: fixed;
       left: 50%;
@@ -1994,7 +2439,7 @@
       <div class="mini-app-bar" aria-label="小程序工具栏">
         <div class="entry-group" aria-label="端口入口">
           <button class="entry-button" type="button" data-view="police">民警端</button>
-          <a class="entry-button" href="admin.html">后台</a>
+          <button class="entry-button" type="button" data-open-pc-admin>后台</button>
         </div>
         <div class="entry-group">
           <a class="profile-link" href="#profile" data-action="打开个人中心">个人中心</a>
@@ -2698,6 +3143,187 @@
     </div>
   </div>
 
+  <section class="pc-admin-view" aria-label="警民通PC后台管理端">
+    <div class="pc-shell">
+      <aside class="pc-sidebar" aria-label="后台导航">
+        <div class="pc-brand">
+          <div class="pc-brand-mark" aria-hidden="true">警</div>
+          <div>
+            <h1>警民通</h1>
+            <span>后台管理端</span>
+          </div>
+        </div>
+        <nav class="pc-nav">
+          <a class="active" href="#pc-overview">总览</a>
+          <a href="#pc-workorders">警情工单</a>
+          <a href="#pc-feedback">情况反映</a>
+          <a href="#pc-online">网络报警</a>
+          <a href="#pc-station">警务站管理</a>
+          <a href="#pc-officer">民警管理</a>
+          <a href="#pc-services">服务入口</a>
+          <a href="#pc-reports">统计报表</a>
+        </nav>
+        <div class="pc-sidebar-foot">
+          当前单位：官埠桥派出所<br>
+          监督电话：0715-8316110<br>
+          投诉渠道：12389
+        </div>
+      </aside>
+
+      <main class="pc-main">
+        <header class="pc-topbar">
+          <div class="pc-title">
+            <h2>综合处置工作台</h2>
+            <p>统一查看网络报警、情况反映、警务站资源和便民服务入口。</p>
+          </div>
+          <div class="pc-toolbar">
+            <input class="pc-search" type="search" placeholder="搜索姓名、地点、工单编号">
+            <select class="pc-select" aria-label="时间范围">
+              <option>今日</option>
+              <option>本周</option>
+              <option>本月</option>
+              <option>自定义时间段</option>
+            </select>
+            <button class="pc-button" type="button" data-close-pc-admin>返回小程序</button>
+            <button class="pc-button primary" type="button" data-pc-action="导出当前数据">导出</button>
+          </div>
+        </header>
+
+        <section class="pc-kpis" id="pc-overview" aria-label="数据概览">
+          <div class="pc-kpi"><span>今日总量</span><strong>18</strong><small>较昨日 +4</small></div>
+          <div class="pc-kpi"><span>待分派</span><strong>5</strong><small>需优先处理</small></div>
+          <div class="pc-kpi"><span>处理中</span><strong>9</strong><small>平均响应 8 分钟</small></div>
+          <div class="pc-kpi"><span>已办结</span><strong>4</strong><small>回访完成 3 件</small></div>
+        </section>
+
+        <div class="pc-dashboard">
+          <section class="pc-panel" id="pc-workorders" aria-labelledby="pc-workorder-title">
+            <div class="pc-panel-head">
+              <div>
+                <h3 id="pc-workorder-title">警情工单</h3>
+                <span id="pcCaseCount">当前显示 5 条</span>
+              </div>
+              <div class="pc-filters" role="group" aria-label="筛选工单">
+                <button class="pc-filter active" type="button" data-pc-filter-type="all">全部</button>
+                <button class="pc-filter" type="button" data-pc-filter-type="online">网络报警</button>
+                <button class="pc-filter" type="button" data-pc-filter-type="feedback">情况反映</button>
+                <button class="pc-filter" type="button" data-pc-filter-status="pending">待分派</button>
+                <button class="pc-filter" type="button" data-pc-filter-status="doing">处理中</button>
+                <button class="pc-filter" type="button" data-pc-filter-status="done">已完成</button>
+              </div>
+            </div>
+            <table class="pc-table">
+              <thead>
+                <tr>
+                  <th>工单信息</th>
+                  <th>类型</th>
+                  <th>责任单位</th>
+                  <th>状态</th>
+                  <th>材料</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-pc-case data-pc-type="online" data-pc-status="pending" data-pc-title="可疑人员徘徊线索">
+                  <td><div class="pc-case-title">可疑人员徘徊线索</div><div class="pc-muted">今天 08:18 · 官埠桥社区南门</div></td>
+                  <td>网络报警</td>
+                  <td>待分派</td>
+                  <td><span class="pc-badge pending">待分派</span></td>
+                  <td>录音、位置</td>
+                  <td><button class="pc-table-action" type="button" data-pc-open-detail>查看</button></td>
+                </tr>
+                <tr data-pc-case data-pc-type="feedback" data-pc-status="pending" data-pc-title="邻里噪声纠纷反映">
+                  <td><div class="pc-case-title">邻里噪声纠纷反映</div><div class="pc-muted">今天 09:42 · 实名提交</div></td>
+                  <td>情况反映</td>
+                  <td>一警务责任区</td>
+                  <td><span class="pc-badge pending">待分派</span></td>
+                  <td>图片</td>
+                  <td><button class="pc-table-action" type="button" data-pc-open-detail>查看</button></td>
+                </tr>
+                <tr data-pc-case data-pc-type="online" data-pc-status="doing" data-pc-title="家庭矛盾求助">
+                  <td><div class="pc-case-title">家庭矛盾求助</div><div class="pc-muted">昨天 16:05 · 方便接听</div></td>
+                  <td>网络报警</td>
+                  <td>蔡有为</td>
+                  <td><span class="pc-badge doing">处理中</span></td>
+                  <td>录音</td>
+                  <td><button class="pc-table-action" type="button" data-pc-open-detail>查看</button></td>
+                </tr>
+                <tr data-pc-case data-pc-type="feedback" data-pc-status="accepted" data-pc-title="车辆占用消防通道">
+                  <td><div class="pc-case-title">车辆占用消防通道</div><div class="pc-muted">昨天 19:30 · 附视频材料</div></td>
+                  <td>情况反映</td>
+                  <td>一警务责任区</td>
+                  <td><span class="pc-badge accepted">已接收</span></td>
+                  <td>视频、图片</td>
+                  <td><button class="pc-table-action" type="button" data-pc-open-detail>查看</button></td>
+                </tr>
+                <tr data-pc-case data-pc-type="feedback" data-pc-status="done" data-pc-title="身份证业务咨询转办">
+                  <td><div class="pc-case-title">身份证业务咨询转办</div><div class="pc-muted">8月13日 14:21 · 已回访</div></td>
+                  <td>情况反映</td>
+                  <td>户籍窗口</td>
+                  <td><span class="pc-badge done">已完成</span></td>
+                  <td>文字</td>
+                  <td><button class="pc-table-action" type="button" data-pc-open-detail>查看</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <aside class="pc-side-stack">
+            <section class="pc-panel" aria-labelledby="pc-detail-title">
+              <div class="pc-panel-head">
+                <h3 id="pc-detail-title">工单详情</h3>
+                <span>模拟处置</span>
+              </div>
+              <div class="pc-detail">
+                <h4 id="pcDetailName">可疑人员徘徊线索</h4>
+                <p id="pcDetailDesc">匿名报警人称小区南门附近有陌生人员多次停留拍照，不方便接听电话，附有录音留言。</p>
+                <div class="pc-detail-grid">
+                  <div class="pc-detail-item"><span>报警方式</span><strong id="pcDetailType">网络报警</strong></div>
+                  <div class="pc-detail-item"><span>接听状态</span><strong>暂不方便</strong></div>
+                  <div class="pc-detail-item"><span>责任区</span><strong>一警务责任区</strong></div>
+                  <div class="pc-detail-item"><span>附件</span><strong>录音、位置</strong></div>
+                </div>
+                <div class="pc-action-grid">
+                  <button class="primary" type="button" data-pc-action="分派给责任民警">分派</button>
+                  <button type="button" data-pc-action="退回补充材料">退回</button>
+                  <button type="button" data-pc-action="标记处理中">处理中</button>
+                  <button type="button" data-pc-action="办结并回访">办结</button>
+                </div>
+              </div>
+            </section>
+
+            <section class="pc-panel" id="pc-station" aria-labelledby="pc-station-title">
+              <div class="pc-panel-head">
+                <h3 id="pc-station-title">警务站资源</h3>
+                <span>3 个责任区</span>
+              </div>
+              <div class="pc-mini-list">
+                <div class="pc-mini-row"><div><strong>官埠桥派出所</strong><span>一警务责任区 · 蔡有为</span></div><span class="pc-badge accepted">在线</span></div>
+                <div class="pc-mini-row"><div><strong>便民服务入口</strong><span>交通违章举报、通行证办理</span></div><span class="pc-badge doing">待配置</span></div>
+                <div class="pc-mini-row"><div><strong>AI警务站</strong><span>身份证、户籍、无犯罪记录证明</span></div><span class="pc-badge done">启用</span></div>
+              </div>
+            </section>
+          </aside>
+        </div>
+
+        <section class="pc-bottom-grid" aria-label="后台配置模块">
+          <div class="pc-config-card" id="pc-officer">
+            <h3>民警管理</h3>
+            <p>维护民警头像、姓名、联系电话、所属派出所、警务责任区和接收范围。</p>
+          </div>
+          <div class="pc-config-card" id="pc-services">
+            <h3>服务入口管理</h3>
+            <p>配置举报有奖、交通违章举报、通行证办理、AI问业务等首页入口。</p>
+          </div>
+          <div class="pc-config-card" id="pc-reports">
+            <h3>统计报表</h3>
+            <p>按本日、全部、时间段、类型、责任区导出报警和反映情况统计。</p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </section>
+
   <div class="toast" role="status" aria-live="polite"></div>
 
   <script>
@@ -2923,6 +3549,75 @@
     });
 
     applyAdminFilters();
+
+    const pcCaseCount = document.querySelector('#pcCaseCount');
+    const pcDetailName = document.querySelector('#pcDetailName');
+    const pcDetailType = document.querySelector('#pcDetailType');
+    const pcDetailDesc = document.querySelector('#pcDetailDesc');
+    let activePcType = 'all';
+    let activePcStatus = 'all';
+
+    function applyPcFilters() {
+      let visible = 0;
+      document.querySelectorAll('[data-pc-case]').forEach((row) => {
+        const typeMatch = activePcType === 'all' || row.dataset.pcType === activePcType;
+        const statusMatch = activePcStatus === 'all' || row.dataset.pcStatus === activePcStatus;
+        const shouldShow = typeMatch && statusMatch;
+        row.hidden = !shouldShow;
+        if (shouldShow) {
+          visible += 1;
+        }
+      });
+      pcCaseCount.textContent = `当前显示 ${visible} 条`;
+    }
+
+    document.querySelector('[data-open-pc-admin]').addEventListener('click', () => {
+      document.body.classList.add('pc-admin-open');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    document.querySelector('[data-close-pc-admin]').addEventListener('click', () => {
+      document.body.classList.remove('pc-admin-open');
+      setView('');
+    });
+
+    document.querySelectorAll('[data-pc-filter-type]').forEach((button) => {
+      button.addEventListener('click', () => {
+        activePcType = button.dataset.pcFilterType;
+        document.querySelectorAll('[data-pc-filter-type]').forEach((item) => item.classList.remove('active'));
+        button.classList.add('active');
+        applyPcFilters();
+      });
+    });
+
+    document.querySelectorAll('[data-pc-filter-status]').forEach((button) => {
+      button.addEventListener('click', () => {
+        activePcStatus = activePcStatus === button.dataset.pcFilterStatus ? 'all' : button.dataset.pcFilterStatus;
+        document.querySelectorAll('[data-pc-filter-status]').forEach((item) => item.classList.remove('active'));
+        if (activePcStatus !== 'all') {
+          button.classList.add('active');
+        }
+        applyPcFilters();
+      });
+    });
+
+    document.querySelectorAll('[data-pc-open-detail]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const row = button.closest('[data-pc-case]');
+        pcDetailName.textContent = row.dataset.pcTitle;
+        pcDetailType.textContent = row.children[1].textContent;
+        pcDetailDesc.textContent = row.querySelector('.pc-muted').textContent;
+        showToast('已打开工单详情');
+      });
+    });
+
+    document.querySelectorAll('[data-pc-action]').forEach((button) => {
+      button.addEventListener('click', () => {
+        showToast(`${button.dataset.pcAction}功能已预留`);
+      });
+    });
+
+    applyPcFilters();
 
     document.querySelector('[data-close-call]').addEventListener('click', () => {
       callSheet.classList.remove('show');
