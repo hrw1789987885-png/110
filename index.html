@@ -86,9 +86,15 @@
       background: var(--rail);
     }
 
-    .hero {
-      flex: 0 0 220px;
+    .home-view {
+      flex: 1 1 auto;
       min-height: 0;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .hero {
+      min-height: 220px;
       color: var(--on-accent);
       padding: 12px 16px 18px;
       background:
@@ -247,15 +253,11 @@
       height: 100%;
     }
 
-    main {
-      flex: 1 1 auto;
-      min-height: 0;
-      overflow-y: auto;
+    .home-view main {
       padding: 0 16px 92px;
       margin-top: -12px;
       position: relative;
       z-index: 2;
-      -webkit-overflow-scrolling: touch;
     }
 
     .location {
@@ -304,11 +306,16 @@
       min-height: 70px;
       border-radius: 16px;
       padding: 12px;
-      display: flex;
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
       align-items: center;
       gap: 12px;
       text-align: left;
       border: 1px solid transparent;
+    }
+
+    .alarm-action > span:last-child {
+      min-width: 0;
     }
 
     .alarm-action strong {
@@ -344,6 +351,20 @@
       place-items: center;
       background: rgba(248, 251, 250, .76);
       box-shadow: inset 0 0 0 1px rgba(16, 38, 38, .06);
+    }
+
+    .icon-chip svg {
+      width: 22px;
+      height: 22px;
+      display: block;
+    }
+
+    .alarm-phone-icon {
+      transform: translate(-1px, 4px);
+    }
+
+    .alarm-message-icon {
+      transform: translate(0, 4px);
     }
 
     section {
@@ -572,6 +593,7 @@
       left: 0;
       right: 0;
       bottom: 0;
+      z-index: 12;
       height: 76px;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -600,6 +622,199 @@
       background: var(--accent-soft);
     }
 
+    .phone {
+      background: #eef5fb;
+      border-color: rgba(54, 99, 153, .16);
+      box-shadow: 0 34px 80px -48px rgba(21, 54, 92, .42);
+    }
+
+    .status-bar {
+      background: #0b2f61;
+    }
+
+    .home-view {
+      background:
+        radial-gradient(240px 170px at 92% 8%, rgba(43, 119, 207, .18), transparent 74%),
+        linear-gradient(180deg, #0b2f61 0%, #174b87 220px, #e7f0f8 221px, #f2f6fa 100%);
+      color: #102b4d;
+    }
+
+    .hero {
+      background:
+        linear-gradient(180deg, rgba(6, 21, 43, .2), rgba(6, 21, 43, .78)),
+        url("assets/title-bg.png") center 44% / cover no-repeat;
+    }
+
+    .hero::before {
+      background:
+        linear-gradient(90deg, rgba(4, 20, 43, .9), rgba(8, 44, 86, .38) 58%, rgba(4, 20, 43, .72)),
+        radial-gradient(200px 120px at 75% 18%, rgba(93, 160, 242, .22), transparent 72%);
+    }
+
+    .home-view .entry-button,
+    .home-view .wx-controls {
+      background: rgba(219, 235, 255, .14);
+      border-color: rgba(219, 235, 255, .22);
+      color: #eef6ff;
+    }
+
+    .home-view .brand p {
+      color: rgba(229, 241, 255, .9);
+    }
+
+    .home-view .reward {
+      color: #08244b;
+      background: #ffd45d;
+      box-shadow: 0 14px 32px rgba(0, 15, 35, .28);
+    }
+
+    .home-view .location {
+      color: #173961;
+      background: #fff7d7;
+      border-color: rgba(194, 141, 35, .2);
+      box-shadow: 0 10px 24px rgba(31, 74, 125, .1);
+    }
+
+    .home-view .location strong {
+      color: #0a2a54;
+    }
+
+    .home-view .close-location {
+      color: #173961;
+      background: rgba(25, 72, 124, .08);
+    }
+
+    .home-view .alarm-card,
+    .home-view .station-card,
+    .home-view .ai-card,
+    .home-view .service,
+    .home-view .footer-help {
+      background: rgba(252, 254, 255, .96);
+      border-color: rgba(54, 99, 153, .12);
+      box-shadow: 0 14px 34px rgba(31, 74, 125, .1);
+    }
+
+    .home-view .section-head h2,
+    .home-view .station-item strong,
+    .home-view .officer strong,
+    .home-view .ai-card h2 {
+      color: #0a2a54;
+    }
+
+    .home-view .section-head span,
+    .home-view .station-list,
+    .home-view .ai-card p,
+    .home-view .footer-help {
+      color: #5d7697;
+    }
+
+    .home-view .alarm-action.hot {
+      color: #ffe9e7;
+      background: linear-gradient(180deg, rgba(190, 45, 41, .9), rgba(126, 27, 31, .9));
+      border-color: rgba(255, 161, 152, .26);
+    }
+
+    .home-view .alarm-action.online {
+      color: #0b4c95;
+      background: linear-gradient(180deg, #eaf4ff, #d9ebff);
+      border-color: rgba(43, 119, 207, .2);
+    }
+
+    .home-view .alarm-action span,
+    .home-view .alarm-action strong {
+      color: inherit;
+    }
+
+    .home-view .alarm-action span span {
+      color: rgba(29, 61, 101, .72);
+    }
+
+    .home-view .alarm-action.hot strong {
+      color: #ffffff;
+      text-shadow: 0 1px 0 rgba(80, 8, 10, .22);
+    }
+
+    .home-view .alarm-action.hot span span {
+      color: rgba(255, 244, 241, .9);
+    }
+
+    .home-view .alarm-action.online strong {
+      color: #073d7d;
+    }
+
+    .home-view .icon-chip {
+      color: #ffffff;
+      background: #1d65c1;
+      box-shadow: none;
+    }
+
+    .home-view .alarm-action.hot .icon-chip {
+      color: #ffffff;
+      background: #c8322a;
+    }
+
+    .home-view .alarm-action.online .icon-chip {
+      color: #ffffff;
+      background: #1d65c1;
+    }
+
+    .home-view .avatar {
+      border-color: rgba(232, 243, 255, .72);
+      box-shadow: 0 12px 24px rgba(0, 13, 34, .3);
+    }
+
+    .home-view .station-actions {
+      border-top-color: rgba(130, 183, 250, .16);
+    }
+
+    .home-view .soft-button {
+      color: #0b4c95;
+      background: #e7f2ff;
+    }
+
+    .home-view .ai-card {
+      background:
+        radial-gradient(120px 88px at 90% 16%, rgba(43, 119, 207, .14), transparent 70%),
+        rgba(252, 254, 255, .96);
+    }
+
+    .home-view .ask-link,
+    .home-view .bot {
+      background: linear-gradient(135deg, #1d65c1, #46a4ff);
+      color: #f5fbff;
+      box-shadow: 0 14px 34px rgba(12, 79, 166, .34);
+    }
+
+    .home-view .service {
+      color: #173961;
+    }
+
+    .home-view .service svg {
+      color: #1d65c1;
+    }
+
+    .home-view .service.is-reserved svg {
+      color: #ffd45d;
+    }
+
+    .home-view .footer-help strong {
+      color: #0b4c95;
+    }
+
+    .bottom-nav {
+      background: rgba(248, 252, 255, .94);
+      border-top-color: rgba(54, 99, 153, .12);
+    }
+
+    .nav-item {
+      color: #6b83a2;
+    }
+
+    .nav-item.active {
+      color: #0b4c95;
+      background: rgba(43, 119, 207, .12);
+    }
+
     .feedback-view {
       display: none;
       height: calc(100% - 26px);
@@ -610,23 +825,22 @@
       overflow: hidden;
     }
 
-    .phone.show-feedback .hero,
-    .phone.show-feedback main,
+    .phone.show-feedback .home-view,
     .phone.show-feedback .bottom-nav,
-    .phone.show-online-alarm .hero,
-    .phone.show-online-alarm main,
+    .phone.show-online-alarm .home-view,
     .phone.show-online-alarm .bottom-nav,
-    .phone.show-police .hero,
-    .phone.show-police main,
+    .phone.show-police .home-view,
     .phone.show-police .bottom-nav,
-    .phone.show-admin .hero,
-    .phone.show-admin main,
+    .phone.show-admin .home-view,
     .phone.show-admin .bottom-nav {
       display: none;
     }
 
-    .phone.show-profile .hero,
-    .phone.show-profile main {
+    .phone.show-profile .home-view {
+      display: none;
+    }
+
+    .phone.show-feedback-list .home-view {
       display: none;
     }
 
@@ -647,6 +861,10 @@
     }
 
     .phone.show-profile .profile-view {
+      display: block;
+    }
+
+    .phone.show-feedback-list .citizen-list-view {
       display: block;
     }
 
@@ -854,6 +1072,110 @@
       margin-bottom: 4px;
       color: var(--ink-1);
       font-size: 15px;
+    }
+
+    .citizen-list-view {
+      display: none;
+      height: calc(100% - 26px - 76px);
+      background: var(--page);
+      color: var(--ink-1);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .citizen-list-content {
+      padding: 14px 16px 92px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .record-filter {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .record-filter span,
+    .record-card {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .record-filter span {
+      min-height: 38px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      color: var(--ink-3);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .record-filter .active {
+      color: var(--accent);
+      background: var(--accent-soft);
+      border-color: rgba(23, 108, 107, .22);
+    }
+
+    .record-card {
+      border-radius: 18px;
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .record-top,
+    .record-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .record-top h3 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      line-height: 1.25;
+    }
+
+    .record-top span,
+    .record-foot {
+      color: var(--ink-3);
+      font-size: 12px;
+    }
+
+    .record-card p {
+      margin: 0;
+      color: var(--ink-2);
+      line-height: 1.55;
+    }
+
+    .record-status {
+      flex: 0 0 auto;
+      min-width: 58px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      text-align: center;
+      color: var(--accent);
+      background: var(--accent-soft);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .record-status.done {
+      color: #4f6b35;
+      background: rgba(96, 124, 67, .13);
+    }
+
+    .record-status.waiting {
+      color: var(--warn);
+      background: rgba(183, 122, 22, .13);
+    }
+
+    .record-foot strong {
+      color: var(--ink-2);
+      font-weight: 800;
     }
 
     .notice-card,
@@ -1542,6 +1864,7 @@
 
     .police-home,
     .police-work,
+    .police-disposal,
     .police-mine {
       display: none;
       padding: 12px 12px 0;
@@ -1549,6 +1872,7 @@
 
     .police-view[data-police-tab="home"] .police-home,
     .police-view[data-police-tab="work"] .police-work,
+    .police-view[data-police-tab="disposal"] .police-disposal,
     .police-view[data-police-tab="mine"] .police-mine {
       display: block;
     }
@@ -1839,6 +2163,166 @@
       box-shadow: var(--shadow);
     }
 
+    .disposal-header-card {
+      margin-bottom: 12px;
+      padding: 14px;
+      border-radius: 18px;
+      color: #f5fbff;
+      background:
+        radial-gradient(190px 120px at 86% 14%, rgba(130, 190, 255, .22), transparent 72%),
+        linear-gradient(135deg, #0b2f61, #174b87);
+      box-shadow: 0 18px 44px rgba(31, 74, 125, .18);
+    }
+
+    .disposal-topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .disposal-back {
+      min-height: 32px;
+      padding: 0 10px;
+      border-radius: 999px;
+      color: #f5fbff;
+      background: rgba(219, 235, 255, .14);
+      border: 1px solid rgba(219, 235, 255, .2);
+      font-weight: 900;
+    }
+
+    .disposal-badge {
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      color: #0b2f61;
+      background: #ffd45d;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .disposal-header-card h2 {
+      margin: 0 0 6px;
+      font-size: 20px;
+      line-height: 1.2;
+    }
+
+    .disposal-header-card p {
+      margin: 0;
+      color: rgba(229, 241, 255, .84);
+      line-height: 1.5;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .disposal-grid {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .disposal-panel {
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(252, 254, 255, .96);
+      border: 1px solid rgba(54, 99, 153, .12);
+      box-shadow: 0 14px 34px rgba(31, 74, 125, .1);
+    }
+
+    .disposal-panel h3 {
+      margin: 0 0 10px;
+      color: #0a2a54;
+      font-size: 16px;
+    }
+
+    .disposal-field-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .disposal-field {
+      display: grid;
+      grid-template-columns: 76px 1fr;
+      gap: 8px;
+      color: #173961;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .disposal-field span {
+      color: #6b83a2;
+      font-weight: 900;
+    }
+
+    .dispose-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .dispose-toggle button {
+      min-height: 40px;
+      border-radius: 999px;
+      color: #173961;
+      background: #edf5fc;
+      border: 1px solid rgba(54, 99, 153, .1);
+      font-weight: 900;
+    }
+
+    .dispose-toggle button.active {
+      color: #f5fbff;
+      background: linear-gradient(135deg, #1d65c1, #46a4ff);
+      border-color: transparent;
+    }
+
+    .dispose-form {
+      display: none;
+      gap: 10px;
+    }
+
+    .dispose-form.active {
+      display: grid;
+    }
+
+    .dispose-form label {
+      display: grid;
+      gap: 6px;
+      color: #173961;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .dispose-form textarea {
+      min-height: 92px;
+      padding: 10px;
+      border-radius: 13px;
+      border: 1px solid rgba(54, 99, 153, .12);
+      background: #edf5fc;
+    }
+
+    .dispose-upload {
+      min-height: 66px;
+      border-radius: 14px;
+      border: 1px dashed rgba(43, 119, 207, .32);
+      background: #edf5fc;
+      color: #0b4c95;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+    }
+
+    .dispose-submit {
+      min-height: 44px;
+      border-radius: 14px;
+      color: #f5fbff;
+      background: linear-gradient(135deg, #1d65c1, #46a4ff);
+      font-weight: 900;
+    }
+
     .police-bottom-nav {
       position: absolute;
       left: 0;
@@ -2106,6 +2590,185 @@
       color: var(--ink-3);
       font-size: 12px;
       line-height: 1.45;
+    }
+
+    .profile-view,
+    .citizen-list-view,
+    .feedback-view,
+    .police-view,
+    .admin-view {
+      background:
+        radial-gradient(260px 170px at 90% -40px, rgba(43, 119, 207, .16), transparent 72%),
+        linear-gradient(180deg, #e7f0f8, #f2f6fa 62%, #eef5fb);
+      color: #102b4d;
+    }
+
+    .feedback-header,
+    .profile-hero,
+    .admin-hero {
+      background:
+        radial-gradient(170px 100px at 86% 12%, rgba(130, 190, 255, .22), transparent 70%),
+        linear-gradient(135deg, #0b2f61, #174b87);
+      color: #f5fbff;
+    }
+
+    .profile-hero {
+      background:
+        linear-gradient(135deg, rgba(11, 47, 97, .96), rgba(23, 75, 135, .9)),
+        url("assets/title-bg.png") center 42% / cover no-repeat;
+    }
+
+    .feedback-header .wx-controls,
+    .profile-titlebar .wx-controls,
+    .admin-hero .wx-controls {
+      background: rgba(219, 235, 255, .14);
+      border-color: rgba(219, 235, 255, .22);
+      color: #eef6ff;
+    }
+
+    .profile-id span,
+    .admin-title span,
+    .officer-hero p {
+      color: rgba(229, 241, 255, .82);
+    }
+
+    .profile-summary div,
+    .profile-menu,
+    .about-card,
+    .record-filter span,
+    .record-card,
+    .notice-card,
+    .feedback-card,
+    .summary-tile,
+    .report-card,
+    .police-metric,
+    .police-panel,
+    .mine-card,
+    .mine-stat,
+    .mine-menu button,
+    .admin-kpi,
+    .admin-panel {
+      background: rgba(252, 254, 255, .96);
+      border-color: rgba(54, 99, 153, .12);
+      box-shadow: 0 14px 34px rgba(31, 74, 125, .1);
+    }
+
+    .notice-card {
+      color: #7a5315;
+      background: #fff7d7;
+      border-color: rgba(194, 141, 35, .2);
+    }
+
+    .notice-card strong {
+      color: #4b3409;
+    }
+
+    .feedback-card h2,
+    .record-top h3,
+    .about-card strong,
+    .profile-menu strong,
+    .police-panel-head h2,
+    .mine-card h2,
+    .admin-panel-head h2,
+    .admin-case h3,
+    .admin-mini-card strong {
+      color: #0a2a54;
+    }
+
+    .profile-id .profile-avatar,
+    .profile-menu .menu-icon,
+    .square-action,
+    .voice-note .square-action {
+      color: #0b4c95;
+      background: #e7f2ff;
+    }
+
+    .profile-summary strong,
+    .record-status,
+    .summary-tile strong,
+    .police-metric strong,
+    .mine-stat strong,
+    .admin-kpi strong {
+      color: #0b4c95;
+    }
+
+    .mode-option.active,
+    .choice-button.active,
+    .record-filter .active,
+    .ranking-row.is-me {
+      color: #0b4c95;
+      background: rgba(43, 119, 207, .12);
+      border-color: rgba(43, 119, 207, .24);
+    }
+
+    .mode-option.active::after {
+      border-top-color: #1d65c1;
+    }
+
+    .choice-button.active::before {
+      border-color: #1d65c1;
+      background: #1d65c1;
+    }
+
+    .submit-button,
+    .confirm-call,
+    .report-action,
+    .admin-action,
+    .admin-filter.active,
+    .admin-status.active,
+    .time-tab.active,
+    .police-tab.active {
+      color: #f5fbff;
+      background: linear-gradient(135deg, #1d65c1, #46a4ff);
+      border-color: transparent;
+    }
+
+    .textarea-wrap,
+    .voice-note,
+    .event-fields,
+    .todo-item,
+    .ranking-row,
+    .admin-case,
+    .admin-mini-card,
+    .report-tag,
+    .admin-tag,
+    .status-badge,
+    .time-tab,
+    .police-tab,
+    .admin-filter,
+    .admin-status,
+    .date-range input,
+    .cancel-call {
+      background: #edf5fc;
+      border-color: rgba(54, 99, 153, .1);
+      color: #173961;
+    }
+
+    .officer-hero {
+      background:
+        radial-gradient(190px 130px at 86% 18%, rgba(130, 190, 255, .22), transparent 70%),
+        linear-gradient(135deg, #0b2f61, #174b87);
+      box-shadow: 0 18px 44px rgba(31, 74, 125, .18);
+    }
+
+    .rate-ring {
+      background:
+        radial-gradient(circle at center, #0b2f61 0 56%, transparent 57%),
+        conic-gradient(#ffd45d 0 86%, rgba(229, 241, 255, .24) 86% 100%);
+    }
+
+    .police-bottom-nav {
+      background: rgba(248, 252, 255, .94);
+      border-top-color: rgba(54, 99, 153, .12);
+    }
+
+    .police-nav-item {
+      color: #6b83a2;
+    }
+
+    .police-nav-item.active {
+      color: #0b4c95;
+      background: rgba(43, 119, 207, .12);
     }
 
     body.pc-admin-open {
@@ -2632,19 +3295,17 @@
 <body>
   <div class="phone" role="application" aria-label="警民通市民报警小程序首页">
     <div class="status-bar" aria-hidden="true"></div>
-    <header class="hero">
+    <div class="home-view">
+      <header class="hero">
       <div class="mini-app-bar" aria-label="小程序工具栏">
         <div class="entry-group" aria-label="端口入口">
           <button class="entry-button" type="button" data-view="police">民警端</button>
           <button class="entry-button" type="button" data-open-pc-admin>后台</button>
         </div>
-        <div class="entry-group">
-          <a class="profile-link" href="#profile" data-view="profile">个人中心</a>
-          <div class="wx-controls" aria-hidden="true">
-            <span>···</span>
-            <span>－</span>
-            <span>○</span>
-          </div>
+        <div class="wx-controls" aria-hidden="true">
+          <span>···</span>
+          <span>－</span>
+          <span>○</span>
         </div>
       </div>
       <div class="brand-row">
@@ -2666,9 +3327,9 @@
           <path d="M54 30h16M54 42h16M54 54h16M28 48h10M28 58h10"></path>
         </svg>
       </div>
-    </header>
+      </header>
 
-    <main id="main">
+      <main id="main">
       <div class="location" aria-label="当前位置">
         <svg aria-hidden="true"><path d="M12 22s7-4.35 7-11a7 7 0 1 0-14 0c0 6.65 7 11 7 11Z"></path><circle cx="12" cy="11" r="2"></circle></svg>
         <span>您现在所在位置：<strong>官埠桥派出所一警</strong></span>
@@ -2678,11 +3339,11 @@
       <div class="alarm-card" aria-label="报警入口">
         <div class="alarm-grid">
           <button class="alarm-action hot" type="button" data-call-title="110报警电话" data-call-number="110">
-            <span class="icon-chip"><svg aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 3.08 5.18 2 2 0 0 1 5.06 3h3a2 2 0 0 1 2 1.72c.12.9.32 1.77.6 2.61a2 2 0 0 1-.45 2.11L9 10.65a16 16 0 0 0 4.35 4.35l1.21-1.21a2 2 0 0 1 2.11-.45c.84.28 1.71.48 2.61.6A2 2 0 0 1 22 16.92Z"></path></svg></span>
+            <span class="icon-chip"><svg class="alarm-phone-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 3.08 5.18 2 2 0 0 1 5.06 3h3a2 2 0 0 1 2 1.72c.12.9.32 1.77.6 2.61a2 2 0 0 1-.45 2.11L9 10.65a16 16 0 0 0 4.35 4.35l1.21-1.21a2 2 0 0 1 2.11-.45c.84.28 1.71.48 2.61.6A2 2 0 0 1 22 16.92Z"></path></svg></span>
             <span><strong>如遇紧急、危急，请拨打 110</strong><span>一键呼叫公安报警电话</span></span>
           </button>
           <button class="alarm-action online" type="button" data-view="online-alarm">
-            <span class="icon-chip"><svg aria-hidden="true"><path d="M4 4h16v14H7l-3 3V4Z"></path><path d="M8 9h8M8 13h5"></path></svg></span>
+            <span class="icon-chip"><svg class="alarm-message-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v14H7l-3 3V4Z"></path><path d="M8 9h8M8 13h5"></path></svg></span>
             <span><strong>不方便电话报警，请使用网络报警</strong><span>文字、图片、位置辅助说明情况</span></span>
           </button>
         </div>
@@ -2774,7 +3435,8 @@
         <div>派出所监督电话：<strong>0715-8316110</strong></div>
         <div>投诉渠道：<strong>12389</strong></div>
       </section>
-    </main>
+      </main>
+    </div>
 
     <nav class="bottom-nav" aria-label="底部导航">
       <a class="nav-item active" href="#main" data-home-nav>
@@ -2819,9 +3481,9 @@
             <span><strong>我的账号信息</strong><span>姓名、手机号、实名状态</span></span>
             <svg class="chevron" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
           </button>
-          <button type="button" data-view="feedback">
+          <button type="button" data-view="feedback-list">
             <span class="menu-icon"><svg aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h5"></path><path d="M15 3h6v6"></path><path d="m10 14 11-11"></path></svg></span>
-            <span><strong>情况反映信息</strong><span>查看或继续提交反映情况</span></span>
+            <span><strong>情况反映信息</strong><span>查看历史反映记录和办理进度</span></span>
             <svg class="chevron" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
           </button>
           <button type="button" data-action="查询报警处理结果">
@@ -2834,9 +3496,9 @@
             <span><strong>系统建设意见</strong><span>对警民通功能提出建议</span></span>
             <svg class="chevron" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
           </button>
-          <button type="button" data-action="查看关于警民通">
+          <button type="button" data-action="查看关于警民通介绍">
             <span class="menu-icon"><svg aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></span>
-            <span><strong>关于警民通</strong><span>平台介绍、服务说明</span></span>
+            <span><strong>关于警民通（介绍）</strong><span>平台介绍、服务说明</span></span>
             <svg class="chevron" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
           </button>
         </div>
@@ -2845,6 +3507,64 @@
           <strong>警民通</strong>
           面向市民提供网络报警、情况反映、便民服务和警务咨询入口，帮助群众更快找到身边警务资源。
         </div>
+      </div>
+    </section>
+
+    <section class="citizen-list-view" aria-label="情况反映信息列表">
+      <header class="feedback-header">
+        <button class="back-button" type="button" aria-label="返回我的" data-view="profile">
+          <svg aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
+        </button>
+        情况反映信息
+        <div class="wx-controls" aria-hidden="true">
+          <span>···</span>
+          <span>－</span>
+          <span>○</span>
+        </div>
+      </header>
+
+      <div class="citizen-list-content">
+        <div class="record-filter" aria-label="反映记录分类">
+          <span class="active">全部 3</span>
+          <span>办理中 2</span>
+          <span>已办结 1</span>
+        </div>
+
+        <article class="record-card">
+          <div class="record-top">
+            <div>
+              <h3>小区夜间噪声扰民</h3>
+              <span>2026-08-17 20:18 · 矛盾纠纷</span>
+            </div>
+            <span class="record-status">办理中</span>
+          </div>
+          <p>反映楼下商铺夜间噪声较大，影响居民休息，希望民警协助沟通处理。</p>
+          <div class="record-foot"><span>受理民警：蔡有为</span><strong>已接收</strong></div>
+        </article>
+
+        <article class="record-card">
+          <div class="record-top">
+            <div>
+              <h3>通道停车影响通行</h3>
+              <span>2026-08-16 09:42 · 邻里通行</span>
+            </div>
+            <span class="record-status waiting">待回访</span>
+          </div>
+          <p>楼栋消防通道附近长期停车，居民出入不便，已上传现场照片。</p>
+          <div class="record-foot"><span>受理民警：蔡有为</span><strong>处理中</strong></div>
+        </article>
+
+        <article class="record-card">
+          <div class="record-top">
+            <div>
+              <h3>身份证业务咨询转办</h3>
+              <span>2026-08-13 14:21 · 业务咨询</span>
+            </div>
+            <span class="record-status done">已办结</span>
+          </div>
+          <p>咨询身份证补办材料和窗口办理时间，民警已电话回访并完成答复。</p>
+          <div class="record-foot"><span>受理民警：蔡有为</span><strong>已完成</strong></div>
+        </article>
       </div>
     </section>
 
@@ -3079,7 +3799,7 @@
         <div class="report-list">
           <div class="report-section-label is-alarm" data-report-section><strong>网络报警</strong><span>红色置顶 · 优先接收</span></div>
 
-          <article class="report-card is-alarm" data-report-status="pending" data-report-date="2026-08-17">
+          <article class="report-card is-alarm" data-report-status="pending" data-report-date="2026-08-17" data-open-disposal data-case-title="可疑人员徘徊线索" data-case-type="网络报警" data-case-status="报警待接收" data-case-meta="网络报警 · 今天 08:18 · 匿名" data-case-desc="小区南门附近有陌生人员多次停留拍照，报警人不方便接听电话，请尽快核查。" data-case-time="2026-08-17 08:18" data-case-person="匿名" data-case-location="官埠桥社区南门岗亭附近" data-case-materials="定位、录音1段、照片2张">
             <div class="report-top">
               <div>
                 <h2>可疑人员徘徊线索</h2>
@@ -3096,11 +3816,11 @@
             </div>
             <div class="report-foot">
               <div class="report-tags"><span class="report-tag">网络报警</span><span class="report-tag">不便接听</span><span class="report-tag">有录音</span></div>
-              <button class="report-action" type="button" data-action="接收报警">接收</button>
+              <button class="report-action" type="button" data-open-disposal-button>研判</button>
             </div>
           </article>
 
-          <article class="report-card is-alarm" data-report-status="unfinished" data-report-date="2026-08-16">
+          <article class="report-card is-alarm" data-report-status="unfinished" data-report-date="2026-08-16" data-open-disposal data-case-title="家庭矛盾求助" data-case-type="网络报警" data-case-status="办理中" data-case-meta="网络报警 · 昨天 16:05 · 实名" data-case-desc="报警人称家中发生争吵，目前情绪激动，已接收，等待回访确认。" data-case-time="2026-08-16 16:05" data-case-person="周某某" data-case-location="官埠桥社区7栋2单元" data-case-materials="录音1段、定位、文字留言">
             <div class="report-top">
               <div>
                 <h2>家庭矛盾求助</h2>
@@ -3117,13 +3837,13 @@
             </div>
             <div class="report-foot">
               <div class="report-tags"><span class="report-tag">网络报警</span><span class="report-tag">需回访</span><span class="report-tag">方便接听</span></div>
-              <button class="report-action" type="button" data-action="完成处理">完成</button>
+              <button class="report-action" type="button" data-open-disposal-button>研判</button>
             </div>
           </article>
 
           <div class="report-section-label" data-report-section><strong>矛盾纠纷</strong><span>调解处置</span></div>
 
-          <article class="report-card" data-report-status="pending" data-report-date="2026-08-17">
+          <article class="report-card" data-report-status="pending" data-report-date="2026-08-17" data-open-disposal data-case-title="邻里噪声纠纷反映" data-case-type="矛盾纠纷" data-case-status="待接收" data-case-meta="矛盾纠纷 · 今天 09:42 · 实名" data-case-desc="官埠桥社区3栋晚间持续噪声，已多次沟通无果，希望民警协助调解。" data-case-time="2026-08-17 09:42" data-case-person="李某" data-case-location="官埠桥社区3栋楼下" data-case-materials="照片3张、文字说明">
             <div class="report-top">
               <div>
                 <h2>邻里噪声纠纷反映</h2>
@@ -3140,11 +3860,11 @@
             </div>
             <div class="report-foot">
               <div class="report-tags"><span class="report-tag">矛盾纠纷</span><span class="report-tag">噪声扰民</span><span class="report-tag">有照片</span></div>
-              <button class="report-action" type="button" data-action="接收反映">接收</button>
+              <button class="report-action" type="button" data-open-disposal-button>研判</button>
             </div>
           </article>
 
-          <article class="report-card" data-report-status="accepted" data-report-date="2026-08-16">
+          <article class="report-card" data-report-status="accepted" data-report-date="2026-08-16" data-open-disposal data-case-title="商铺门口通行纠纷" data-case-type="矛盾纠纷" data-case-status="已接收" data-case-meta="矛盾纠纷 · 昨天 19:30 · 实名" data-case-desc="临街商铺门口车辆和摊位长期占道，居民与商户发生争执，影响通行。" data-case-time="2026-08-16 19:30" data-case-person="陈某某" data-case-location="官埠桥菜场东侧商铺门口" data-case-materials="视频1段、照片2张">
             <div class="report-top">
               <div>
                 <h2>商铺门口通行纠纷</h2>
@@ -3161,9 +3881,57 @@
             </div>
             <div class="report-foot">
               <div class="report-tags"><span class="report-tag">矛盾纠纷</span><span class="report-tag">通行争议</span><span class="report-tag">有视频</span></div>
-              <button class="report-action" type="button" data-action="标记处理中">处理</button>
+              <button class="report-action" type="button" data-open-disposal-button>研判</button>
             </div>
           </article>
+        </div>
+      </div>
+
+      <div class="police-disposal">
+        <section class="disposal-header-card" aria-label="事件研判">
+          <div class="disposal-topline">
+            <button class="disposal-back" type="button" data-police-section="work">返回工作</button>
+            <span class="disposal-badge" id="disposalStatus">待接收</span>
+          </div>
+          <h2 id="disposalTitle">事件研判</h2>
+          <p id="disposalMeta">请选择工作列表中的事件查看详情</p>
+        </section>
+
+        <div class="disposal-grid">
+          <section class="disposal-panel">
+            <h3>事件详情</h3>
+            <div class="disposal-field-list">
+              <div class="disposal-field"><span>类型</span><strong id="disposalType">-</strong></div>
+              <div class="disposal-field"><span>事件时间</span><strong id="disposalTime">-</strong></div>
+              <div class="disposal-field"><span>报警/反映人</span><strong id="disposalPerson">-</strong></div>
+              <div class="disposal-field"><span>定位</span><strong id="disposalLocation">-</strong></div>
+              <div class="disposal-field"><span>材料</span><strong id="disposalMaterials">-</strong></div>
+              <div class="disposal-field"><span>内容</span><strong id="disposalDesc">-</strong></div>
+            </div>
+          </section>
+
+          <section class="disposal-panel">
+            <h3>处置方式</h3>
+            <div class="dispose-toggle" role="tablist" aria-label="选择处置方式">
+              <button class="active" type="button" data-dispose-mode="self">自己处理</button>
+              <button type="button" data-dispose-mode="push">推送接警平台</button>
+            </div>
+
+            <div class="dispose-form active" data-dispose-form="self">
+              <label>处置结果
+                <textarea id="selfDisposeResult" placeholder="请填写现场核实、调解、回访或办结情况"></textarea>
+              </label>
+              <button class="dispose-upload" type="button" data-action="上传处置照片">上传处置照片</button>
+              <button class="dispose-submit" type="button" data-submit-self-dispose>提交自己处理结果</button>
+            </div>
+
+            <div class="dispose-form" data-dispose-form="push">
+              <label>推送备注
+                <textarea id="pushRemark" placeholder="请填写推送接警平台的补充说明，例如风险等级、现场情况、建议处置"></textarea>
+              </label>
+              <button class="dispose-submit" type="button" data-submit-push-platform>推送接警平台</button>
+            </div>
+          </section>
         </div>
       </div>
 
@@ -3587,7 +4355,19 @@
     const callTitle = document.querySelector('#callTitle');
     const callSubtitle = document.querySelector('#callSubtitle');
     const callNumber = document.querySelector('#callNumber');
-    const viewClassNames = ['show-feedback', 'show-online-alarm', 'show-police', 'show-admin', 'show-profile'];
+    const policeView = document.querySelector('.police-view');
+    const disposalTitle = document.querySelector('#disposalTitle');
+    const disposalStatus = document.querySelector('#disposalStatus');
+    const disposalMeta = document.querySelector('#disposalMeta');
+    const disposalType = document.querySelector('#disposalType');
+    const disposalTime = document.querySelector('#disposalTime');
+    const disposalPerson = document.querySelector('#disposalPerson');
+    const disposalLocation = document.querySelector('#disposalLocation');
+    const disposalMaterials = document.querySelector('#disposalMaterials');
+    const disposalDesc = document.querySelector('#disposalDesc');
+    const selfDisposeResult = document.querySelector('#selfDisposeResult');
+    const pushRemark = document.querySelector('#pushRemark');
+    const viewClassNames = ['show-feedback', 'show-online-alarm', 'show-police', 'show-admin', 'show-profile', 'show-feedback-list'];
     let activeRole = 'citizen';
     let toastTimer;
 
@@ -3605,8 +4385,9 @@
       }
       activeRole = viewName === 'police' || viewName === 'admin' ? viewName : 'citizen';
       document.querySelectorAll('.bottom-nav .nav-item').forEach((item) => item.classList.remove('active'));
-      document.querySelector(viewName === 'profile' ? '[data-view="profile"].nav-item' : '[data-home-nav]')?.classList.add('active');
-      document.querySelectorAll('main, .profile-view, .feedback-view, .police-view, .admin-view').forEach((panel) => {
+      const profileViews = ['profile', 'feedback-list'];
+      document.querySelector(profileViews.includes(viewName) ? '[data-view="profile"].nav-item' : '[data-home-nav]')?.classList.add('active');
+      document.querySelectorAll('.home-view, .profile-view, .citizen-list-view, .feedback-view, .police-view, .admin-view').forEach((panel) => {
         panel.scrollTop = 0;
       });
     }
@@ -3628,6 +4409,12 @@
     document.querySelectorAll('[data-view="feedback"]').forEach((el) => {
       el.addEventListener('click', () => {
         setView('feedback');
+      });
+    });
+
+    document.querySelectorAll('[data-view="feedback-list"]').forEach((el) => {
+      el.addEventListener('click', () => {
+        setView('feedback-list');
       });
     });
 
@@ -3699,13 +4486,76 @@
       });
     });
 
+    function setPoliceSection(section) {
+      policeView.dataset.policeTab = section;
+      document.querySelectorAll('.police-nav-item[data-police-section]').forEach((item) => {
+        item.classList.toggle('active', item.dataset.policeSection === section || (section === 'disposal' && item.dataset.policeSection === 'work'));
+      });
+      policeView.scrollTop = 0;
+    }
+
+    function setDisposeMode(mode) {
+      document.querySelectorAll('[data-dispose-mode]').forEach((button) => {
+        button.classList.toggle('active', button.dataset.disposeMode === mode);
+      });
+      document.querySelectorAll('[data-dispose-form]').forEach((form) => {
+        form.classList.toggle('active', form.dataset.disposeForm === mode);
+      });
+    }
+
+    function openPoliceDisposal(card) {
+      disposalTitle.textContent = card.dataset.caseTitle;
+      disposalStatus.textContent = card.dataset.caseStatus;
+      disposalMeta.textContent = card.dataset.caseMeta;
+      disposalType.textContent = card.dataset.caseType;
+      disposalTime.textContent = card.dataset.caseTime;
+      disposalPerson.textContent = card.dataset.casePerson;
+      disposalLocation.textContent = card.dataset.caseLocation;
+      disposalMaterials.textContent = card.dataset.caseMaterials;
+      disposalDesc.textContent = card.dataset.caseDesc;
+      selfDisposeResult.value = '';
+      pushRemark.value = '';
+      setDisposeMode('self');
+      setPoliceSection('disposal');
+    }
+
     document.querySelectorAll('[data-police-section]').forEach((button) => {
       button.addEventListener('click', () => {
-        const section = button.dataset.policeSection;
-        document.querySelector('.police-view').dataset.policeTab = section;
-        document.querySelectorAll('[data-police-section]').forEach((item) => item.classList.remove('active'));
-        button.classList.add('active');
+        setPoliceSection(button.dataset.policeSection);
       });
+    });
+
+    document.querySelectorAll('[data-open-disposal]').forEach((card) => {
+      card.addEventListener('click', () => {
+        openPoliceDisposal(card);
+      });
+    });
+
+    document.querySelectorAll('[data-open-disposal-button]').forEach((button) => {
+      button.addEventListener('click', (event) => {
+        event.stopPropagation();
+        openPoliceDisposal(button.closest('[data-open-disposal]'));
+      });
+    });
+
+    document.querySelectorAll('[data-dispose-mode]').forEach((button) => {
+      button.addEventListener('click', () => {
+        setDisposeMode(button.dataset.disposeMode);
+      });
+    });
+
+    document.querySelector('[data-submit-self-dispose]').addEventListener('click', () => {
+      if (!selfDisposeResult.value.trim()) {
+        showToast('请先填写处置结果');
+        selfDisposeResult.focus();
+        return;
+      }
+      showToast('已提交自己处理结果');
+    });
+
+    document.querySelector('[data-submit-push-platform]').addEventListener('click', () => {
+      const hasRemark = pushRemark.value.trim().length > 0;
+      showToast(hasRemark ? '已推送接警平台并附备注' : '已推送接警平台');
     });
 
     document.querySelectorAll('[data-call-number]').forEach((button) => {
